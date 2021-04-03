@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AddModifyProductController">
    <children>
       <HBox prefHeight="700.0" prefWidth="1200.0" style="-fx-border-color: black; -fx-border-radius: 8; -fx-border-width: 3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -85,7 +84,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField disable="true" prefHeight="25.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.columnSpan="2" />
+                        <TextField fx:id="productFormIDText" disable="true" prefHeight="25.0" prefWidth="125.0" promptText="Auto Gen - Disabled" GridPane.columnIndex="2" GridPane.columnSpan="2" />
                         <TextField fx:id="productFormNameText" prefHeight="25.0" prefWidth="140.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                         <TextField fx:id="productFormInvText" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <TextField fx:id="productFormPriceText" GridPane.columnIndex="2" GridPane.rowIndex="3" />
@@ -131,7 +130,7 @@
                   </HBox>
                   <TableView fx:id="productFormAssociatedPartView" prefHeight="200.0" prefWidth="200.0">
                      <columns>
-                        <TableColumn fx:id="associatedPartNameColumn" prefWidth="127.0" text="Part ID" />
+                        <TableColumn fx:id="associatedPartIDColumn" prefWidth="127.0" text="Part ID" />
                         <TableColumn fx:id="associatedPartNameColumn" prefWidth="125.0" text="Part Name" />
                         <TableColumn fx:id="associatedPartInvColumn" prefWidth="143.0" text="Inventory Level" />
                         <TableColumn fx:id="associatedPartPriceColumn" prefWidth="166.0" text="Price / Cost per Unit" />
@@ -155,7 +154,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="productFormRemovePartButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Remove Associated Part" GridPane.columnIndex="5" GridPane.columnSpan="3" />
+                        <Button fx:id="removeAssociatedPartButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Remove Associated Part" GridPane.columnIndex="5" GridPane.columnSpan="3" />
                         <Button fx:id="productFormSaveButton" mnemonicParsing="false" text="Save" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                         <Button fx:id="productFormCancelButton" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="7" GridPane.rowIndex="2" />
                      </children>
