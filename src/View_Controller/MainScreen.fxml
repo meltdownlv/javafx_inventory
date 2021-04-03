@@ -35,7 +35,7 @@
                            <children>
                               <AnchorPane prefHeight="37.0" prefWidth="579.0">
                                  <children>
-                                    <TextField layoutX="390.0" layoutY="8.0" prefHeight="30.0" prefWidth="175.0" promptText="Search by Part ID or Name" />
+                                    <TextField fx:id="mainPartSearchText" layoutX="390.0" layoutY="8.0" prefHeight="30.0" prefWidth="175.0" promptText="Search by Part ID or Name" />
                                     <Label layoutX="14.0" layoutY="11.0" text="Parts">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
@@ -45,30 +45,33 @@
                               </AnchorPane>
                               <HBox prefHeight="231.0" prefWidth="645.0">
                                  <children>
-                                    <TableView prefHeight="153.0" prefWidth="615.0">
+                                    <TableView fx:id="mainPartTableView" prefHeight="153.0" prefWidth="615.0">
                                       <columns>
-                                        <TableColumn prefWidth="106.0" resizable="false" text="Part ID" />
-                                        <TableColumn prefWidth="112.0" resizable="false" text="Part Name" />
-                                          <TableColumn prefWidth="141.0" resizable="false" text="Inventory Level" />
-                                          <TableColumn prefWidth="189.0" resizable="false" text="Price / Cost per Unit" />
+                                        <TableColumn fx:id="mainPartIDColumn" editable="false" prefWidth="106.0" resizable="false" text="Part ID" />
+                                        <TableColumn fx:id="mainPartNameColumn" editable="false" prefWidth="112.0" resizable="false" text="Part Name" />
+                                          <TableColumn fx:id="mainPartInvColumn" editable="false" prefWidth="141.0" resizable="false" text="Inventory Level" />
+                                          <TableColumn fx:id="mainPartPriceColumn" editable="false" prefWidth="189.0" resizable="false" text="Price / Cost per Unit" />
                                       </columns>
                                        <HBox.margin>
                                           <Insets left="15.0" right="15.0" />
                                        </HBox.margin>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
                                     </TableView>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="645.0" spacing="15.0">
                                  <children>
-                                    <Button maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Add">
+                                    <Button fx:id="mainAddPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Add">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
-                                    <Button maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Modify">
+                                    <Button fx:id="mainModPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Modify">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
-                                    <Button maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Delete">
+                                    <Button fx:id="mainDeletePartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Delete">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
@@ -89,7 +92,7 @@
                            <children>
                               <AnchorPane>
                                  <children>
-                                    <TextField layoutX="421.0" prefHeight="30.0" prefWidth="175.0" promptText="Search by Product ID or Name" />
+                                    <TextField fx:id="mainProductSearchText" layoutX="421.0" prefHeight="30.0" prefWidth="175.0" promptText="Search by Product ID or Name" />
                                     <Label layoutX="14.0" layoutY="6.0" text="Products">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
@@ -99,30 +102,33 @@
                               </AnchorPane>
                               <HBox prefHeight="231.0" prefWidth="645.0">
                                  <children>
-                                    <TableView prefHeight="153.0" prefWidth="615.0">
+                                    <TableView fx:id="mainProductTableView" prefHeight="153.0" prefWidth="615.0">
                                        <columns>
-                                          <TableColumn prefWidth="99.0" resizable="false" text="Product ID" />
-                                          <TableColumn prefWidth="134.0" resizable="false" text="Product Name" />
-                                          <TableColumn prefWidth="156.0" resizable="false" text="Inventory Level" />
-                                          <TableColumn prefWidth="190.0" resizable="false" text="Price / Cost per Unit" />
+                                          <TableColumn fx:id="mainProductIDColumn" editable="false" prefWidth="99.0" resizable="false" text="Product ID" />
+                                          <TableColumn fx:id="mainProductNameColumn" editable="false" prefWidth="134.0" resizable="false" text="Product Name" />
+                                          <TableColumn fx:id="mainProductInvColumn" editable="false" prefWidth="156.0" resizable="false" text="Inventory Level" />
+                                          <TableColumn fx:id="mainProductPriceColumn" editable="false" prefWidth="190.0" resizable="false" text="Price / Cost per Unit" />
                                        </columns>
                                        <HBox.margin>
                                           <Insets left="15.0" right="15.0" />
                                        </HBox.margin>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
                                     </TableView>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="645.0" spacing="15.0">
                                  <children>
-                                    <Button maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Add">
+                                    <Button fx:id="mainAddProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Add">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
-                                    <Button maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Modify">
+                                    <Button fx:id="mainModProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Modify">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
-                                    <Button maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Delete">
+                                    <Button fx:id="mainDeleteProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Delete">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
