@@ -30,12 +30,12 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="partFormInHouseRadio" mnemonicParsing="false" text="In-House">
+                  <RadioButton fx:id="partFormInHouseRadio" mnemonicParsing="false" onAction="#partFormRadioClicked" text="In-House">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="partFormOutsouredRadio" mnemonicParsing="false" text="Outsourced">
+                  <RadioButton fx:id="partFormOutsouredRadio" mnemonicParsing="false" onAction="#partFormRadioClicked" text="Outsourced">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -129,8 +129,8 @@
             </GridPane>
             <AnchorPane prefHeight="51.0" prefWidth="590.0">
                <children>
-                  <Button fx:id="partFormSaveButton" layoutX="295.0" layoutY="13.0" mnemonicParsing="false" prefWidth="60.0" text="Save" />
-                  <Button fx:id="partFormCancelButton" layoutX="374.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Cancel" />
+                  <Button fx:id="partFormSaveButton" layoutX="295.0" layoutY="13.0" mnemonicParsing="false" onAction="#partFormSaveButtonPushed" prefWidth="60.0" text="Save" />
+                  <Button fx:id="partFormCancelButton" layoutX="374.0" layoutY="13.0" mnemonicParsing="false" onAction="#partFormCancelButtonPushed" prefHeight="25.0" prefWidth="60.0" text="Cancel" />
                </children>
             </AnchorPane>
          </children>

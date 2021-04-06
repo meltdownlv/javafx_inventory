@@ -7,9 +7,16 @@ package Model;
  * @author Sakae Watanabe
  */
 public class InHousePart extends Part {
+
+  //===========================================================================
+  // Member Variables
+  //===========================================================================
   /** The ID of the machine that produced this part. */
   private int machineID;
-
+  
+  //===========================================================================
+  // Constructor
+  //===========================================================================
   /**
    * Constructs a new InHousePart using the specified parameters.
    *
@@ -27,6 +34,9 @@ public class InHousePart extends Part {
     this.machineID = machineID;
   }
 
+  //===========================================================================
+  // Getters & Setters
+  //===========================================================================
   /**
    * @return The int value of the ID for machine that produced this part
    */

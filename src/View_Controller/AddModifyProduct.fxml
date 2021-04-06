@@ -96,16 +96,17 @@
             </VBox>
             <VBox prefHeight="614.0" prefWidth="584.0" spacing="10.0">
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="582.0">
+                  <HBox alignment="BOTTOM_RIGHT" prefHeight="41.0" prefWidth="582.0">
                      <children>
-                        <TextField fx:id="productFormSearchText" prefHeight="31.0" prefWidth="176.0" promptText="Search by Part ID or Name">
+                        <TextField fx:id="productFormSearchText" onAction="#searchProductsHandler" prefHeight="30.0" prefWidth="175.0" promptText="Search by Part ID or Name">
                            <HBox.margin>
-                              <Insets right="10.0" />
+                              <Insets />
                            </HBox.margin>
                            <font>
                               <Font size="13.0" />
                            </font>
                         </TextField>
+                        <Button fx:id="productFormSearchButton" mnemonicParsing="false" onAction="#searchProductsHandler" prefHeight="30.0" prefWidth="63.0" text="Search" />
                      </children>
                   </HBox>
                   <TableView fx:id="productFormAvailablePartView" prefHeight="200.0" prefWidth="200.0">
@@ -118,7 +119,7 @@
                   </TableView>
                   <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="562.0">
                      <children>
-                        <Button fx:id="productFormAddPartButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="Add">
+                        <Button fx:id="productFormAddPartButton" mnemonicParsing="false" onAction="#addPartToProductPushed" prefHeight="25.0" prefWidth="45.0" text="Add">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -154,9 +155,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="removeAssociatedPartButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Remove Associated Part" GridPane.columnIndex="5" GridPane.columnSpan="3" />
-                        <Button fx:id="productFormSaveButton" mnemonicParsing="false" text="Save" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                        <Button fx:id="productFormCancelButton" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+                        <Button fx:id="removeAssociatedPartButton" mnemonicParsing="false" onAction="#removeAssociatedButtonPushed" prefHeight="25.0" prefWidth="151.0" text="Remove Associated Part" GridPane.columnIndex="5" GridPane.columnSpan="3" />
+                        <Button fx:id="productFormSaveButton" mnemonicParsing="false" onAction="#saveProductButtonPushed" text="Save" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                        <Button fx:id="productFormCancelButton" mnemonicParsing="false" onAction="#productFormCancelButtonPushed" text="Cancel" GridPane.columnIndex="7" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

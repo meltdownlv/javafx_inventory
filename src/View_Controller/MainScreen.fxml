@@ -35,12 +35,17 @@
                            <children>
                               <AnchorPane prefHeight="37.0" prefWidth="579.0">
                                  <children>
-                                    <TextField fx:id="mainPartSearchText" layoutX="390.0" layoutY="8.0" prefHeight="30.0" prefWidth="175.0" promptText="Search by Part ID or Name" />
+                                    <TextField fx:id="mainPartSearchText" layoutX="320.0" layoutY="8.0" onAction="#mainSearchPartHandler" prefHeight="30.0" prefWidth="175.0" promptText="Search by Part ID or Name" />
                                     <Label layoutX="14.0" layoutY="11.0" text="Parts">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
+                                    <Button fx:id="mainPartSearchButton" layoutX="494.0" layoutY="8.0" mnemonicParsing="false" onAction="#mainSearchPartHandler" prefHeight="30.0" prefWidth="69.0" text="Search">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                               <HBox prefHeight="231.0" prefWidth="645.0">
@@ -63,15 +68,15 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="645.0" spacing="15.0">
                                  <children>
-                                    <Button fx:id="mainAddPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Add">
+                                    <Button fx:id="mainAddPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#addPartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Add">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
-                                    <Button fx:id="mainModPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Modify">
+                                    <Button fx:id="mainModPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#modPartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Modify">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
-                                    <Button fx:id="mainDeletePartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Delete">
+                                    <Button fx:id="mainDeletePartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#deletePartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Delete">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
@@ -92,12 +97,17 @@
                            <children>
                               <AnchorPane>
                                  <children>
-                                    <TextField fx:id="mainProductSearchText" layoutX="421.0" prefHeight="30.0" prefWidth="175.0" promptText="Search by Product ID or Name" />
+                                    <TextField fx:id="mainProductSearchText" layoutX="350.0" onAction="#mainSearchProductHandler" prefHeight="30.0" prefWidth="175.0" promptText="Search by Product ID or Name" />
                                     <Label layoutX="14.0" layoutY="6.0" text="Products">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
+                                    <Button fx:id="mainProductSearchButton" layoutX="525.0" mnemonicParsing="false" onAction="#mainSearchProductHandler" prefHeight="30.0" prefWidth="69.0" text="Search">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                               <HBox prefHeight="231.0" prefWidth="645.0">
@@ -120,15 +130,15 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="645.0" spacing="15.0">
                                  <children>
-                                    <Button fx:id="mainAddProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Add">
+                                    <Button fx:id="mainAddProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#addProductButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Add">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
-                                    <Button fx:id="mainModProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Modify">
+                                    <Button fx:id="mainModProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#modProductButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Modify">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
-                                    <Button fx:id="mainDeleteProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="Delete">
+                                    <Button fx:id="mainDeleteProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#deleteProductButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Delete">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>
@@ -154,7 +164,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="1290.0">
                <children>
-                  <Button fx:id="mainExitButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Exit">
+                  <Button fx:id="mainExitButton" mnemonicParsing="false" onAction="#exitButtonPushed" prefHeight="25.0" prefWidth="60.0" text="Exit">
                      <font>
                         <Font size="13.0" />
                      </font></Button>

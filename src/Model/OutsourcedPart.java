@@ -8,9 +8,15 @@ package Model;
  */
 public class OutsourcedPart extends Part{
 
+  //===========================================================================
+  // Member Variables
+  //===========================================================================
   /** The company name from which the part was purchased. */
   private String companyName;
 
+  //===========================================================================
+  // Constructor
+  //===========================================================================
   /**
    * Constructs a new OutSourcedPart using the specified parameters.
    *
@@ -28,6 +34,9 @@ public class OutsourcedPart extends Part{
     this.companyName = companyName;
   }
 
+  //===========================================================================
+  // Getters & Setters
+  //===========================================================================
   /**
    * @param companyName The string value to be set for this company name.
    */

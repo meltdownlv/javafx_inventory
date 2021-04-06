@@ -1,5 +1,6 @@
 package Model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -10,6 +11,9 @@ import javafx.collections.ObservableList;
  */
 public class Product {
 
+  //===========================================================================
+  // Member Variables
+  //===========================================================================
   /** An ObservableList of parts associated with the product. */
   private ObservableList<Part> associatedParts;
   /** ID number for the product. */
@@ -25,6 +29,9 @@ public class Product {
   /** Maximum quantity stock level for the product */
   private int max;
 
+  //===========================================================================
+  // Constructor
+  //===========================================================================
   /**
    * Constructs a new Product using the specified parameters.
    *
@@ -38,7 +45,12 @@ public class Product {
    */
   public Product(ObservableList<Part> associatedParts, int id, String name, double price, int stock,
       int min, int max) {
-    this.associatedParts = associatedParts;
+
+    if (associatedParts != null){
+      this.associatedParts = associatedParts;
+    } else {
+      this.associatedParts = FXCollections.observableArrayList();
+    }
     this.id = id;
     this.name = name;
     this.price = price;
@@ -47,6 +59,9 @@ public class Product {
     this.max = max;
   }
 
+  //===========================================================================
+  // Getters & Setters
+  //===========================================================================
   /**
    * @return An integer value for the ID of the Product.
    */
@@ -134,6 +149,10 @@ public class Product {
   /**
    * @param part A Part added to associated parts list.
    */
+  
+  //===========================================================================
+  // Associated Part List Methods
+  //===========================================================================
   public void addAssociatedPart(Part part) {
     this.associatedParts.add(part);
   }

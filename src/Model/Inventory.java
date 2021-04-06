@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -14,16 +13,12 @@ import javafx.collections.ObservableList;
 public class Inventory {
 
   //===========================================================================
-  // Class members
+  // Member Variables
   //===========================================================================
   /** An ObservableList containing all Parts currently in stock */
-  private static ObservableList<Part> allParts;
+  private static ObservableList<Part> allParts = FXCollections.observableArrayList();
   /** An ObservableList containing all Products currently in stock */
-  private static ObservableList<Product> allProducts;
-
-  // TODO Add static methods for loading test data using public method. We can either
-  // place this in main before launch(args) OR wrap it in a static call within this class
-  // and it will be called the first time the data is attempted to be accessed by the tableView.
+  private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
   //===========================================================================
   // Part list methods
@@ -54,7 +49,7 @@ public class Inventory {
    * @param selectedPart A Part to be removed from the allParts list.
    * @return A boolean indicating whether or not part was removed from the list.
    */
-  public boolean deletePart(Part selectedPart) {
+  public static boolean deletePart(Part selectedPart) {
     boolean deleted = false;
     if(!allParts.isEmpty()) {
       for (Part p : allParts) {
@@ -106,7 +101,7 @@ public class Inventory {
     ObservableList<Part> foundParts = FXCollections.observableArrayList();
     if (!allParts.isEmpty()) {
       for (Part p : allParts) {
-        if (p.getName().equals(partName)) {
+        if (p.getName().toLowerCase().contains(partName.toLowerCase())) {
           foundParts.add(p);
         }
       }
@@ -146,7 +141,7 @@ public class Inventory {
    *  be deleted.
    * TODO: Consider throwing an exception if parts still in associated parts list.
    */
-  public boolean deleteProduct(Product selectedProduct) {
+  public static boolean deleteProduct(Product selectedProduct) {
     boolean deleted = false;
     if(!allProducts.isEmpty()) {
       for (Product p : allProducts) {
@@ -166,7 +161,7 @@ public class Inventory {
   /**
    * @return An ObservableList containing all Products currently in stock.
    */
-  public ObservableList<Product> getAllProducts() {
+  public static ObservableList<Product> getAllProducts() {
     return allProducts;
   }
 
@@ -201,7 +196,7 @@ public class Inventory {
     ObservableList<Product> foundProducts = FXCollections.observableArrayList();
     if (!allProducts.isEmpty()) {
       for (Product p : allProducts) {
-        if (p.getName().equals(productName)) {
+        if (p.getName().toLowerCase().contains(productName.toLowerCase())) {
           foundProducts.add(p);
         }
       }
@@ -210,5 +205,37 @@ public class Inventory {
     return null;
   }
 
+  //===========================================================================
+  // Test Data Loading Methods
+  //===========================================================================
+
+  /*
+    Static initializer for loading test data into member lists.
+   */
+  static {
+    loadTestData();
+  }
+
+  /**
+   * The loadTestData method populates our static lists with parts and products for testing.
+   * TODO: Write about how this method can and should be replaced/improved with a database
+   *
+   */
+  public static void loadTestData() {
+    InHousePart inPart1 = new InHousePart(1, "inPart1", 9.99, 5, 1, 2, 97);
+    InHousePart inPart2 = new InHousePart(2, "inPart2", 10.99, 3, 6, 37, 91);
+    OutsourcedPart outPart1 = new OutsourcedPart(4, "outPart1", 9.99, 2, 5, 11, "Wowz");
+    OutsourcedPart outPart2 = new OutsourcedPart(5, "outPart2", 19.99, 1, 2, 19, "Nowz");
+    allParts.addAll(inPart1, inPart2, outPart1, outPart2);
+
+    Product product1 = new Product(null, 1, "Product1", 9.99, 3, 1, 5);
+    Product product2 = new Product(null, 1, "Product1", 9.99, 3, 1, 5);
+    product1.addAssociatedPart(inPart1);
+    product1.addAssociatedPart(outPart1);
+    product2.addAssociatedPart(inPart2);
+    product2.addAssociatedPart(outPart2);
+    allProducts.addAll(product1, product2);
+
+  }
 
 }
