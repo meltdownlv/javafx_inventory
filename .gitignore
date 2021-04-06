@@ -9,6 +9,7 @@
 .idea/**/shelf
 .idea/
 /out
+/src/Test/
 
 # Generated files
 .idea/**/contentModel.xml
