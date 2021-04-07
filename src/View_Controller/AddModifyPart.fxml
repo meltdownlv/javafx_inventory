@@ -35,7 +35,7 @@
                         <Font size="14.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="partFormOutsouredRadio" mnemonicParsing="false" onAction="#partFormRadioClicked" text="Outsourced">
+                  <RadioButton fx:id="partFormOutsourcedRadio" mnemonicParsing="false" onAction="#partFormRadioClicked" text="Outsourced">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -102,13 +102,10 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="partFormTypeLabel" text="Machine ID" GridPane.rowIndex="5">
+                  <Label fx:id="partFormTypeLabel" text="Company Name" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
                   </Label>
                   <TextField fx:id="partFormIDText" disable="true" text="Auto Gen - Disabled" GridPane.columnIndex="1" />
                   <TextField fx:id="partFormNameText" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -124,7 +121,7 @@
                         <Insets left="30.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="partFormMinText" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <TextField fx:id="partFormMinText" onAction="#sillyThings" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                </children>
             </GridPane>
             <AnchorPane prefHeight="51.0" prefWidth="590.0">

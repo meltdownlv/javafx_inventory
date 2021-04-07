@@ -15,11 +15,15 @@ public class Inventory {
   //===========================================================================
   // Member Variables
   //===========================================================================
-  /** An ObservableList containing all Parts currently in stock */
+  /** An ObservableList containing all Parts currently in stock. */
   private static ObservableList<Part> allParts = FXCollections.observableArrayList();
-  /** An ObservableList containing all Products currently in stock */
+  /** An ObservableList containing all Products currently in stock. */
   private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
+  /** An integer value used by Inventory to assign new part ID numbers. */
+  private static int nextPartID = 0;
+  /** An integer value used by Inventory to assign new product ID numbers. */
+  private static int nextProductID = 1000;
   //===========================================================================
   // Part list methods
   //===========================================================================
@@ -108,6 +112,16 @@ public class Inventory {
       return foundParts;
     }
     return null;
+  }
+
+  /**
+   * The getNextPartID method increments the current value of nextPartID and
+   * returns an integer.
+   *
+   * @return The next part ID to be used for part being brought into inventory.
+   */
+  public static int getNextPartID() {
+    return ++nextPartID;
   }
 
   //================================================================================
@@ -205,6 +219,15 @@ public class Inventory {
     return null;
   }
 
+  /**
+   * The getNextProductID method increments the current value of nextProductID and
+   * returns an integer.
+   *
+   * @return The next product ID to be used for product being brought into inventory.
+   */
+  public static int getNextProductID() {
+    return ++nextProductID;
+  }
   //===========================================================================
   // Test Data Loading Methods
   //===========================================================================
@@ -222,14 +245,14 @@ public class Inventory {
    *
    */
   public static void loadTestData() {
-    InHousePart inPart1 = new InHousePart(1, "inPart1", 9.99, 5, 1, 2, 97);
-    InHousePart inPart2 = new InHousePart(2, "inPart2", 10.99, 3, 6, 37, 91);
-    OutsourcedPart outPart1 = new OutsourcedPart(4, "outPart1", 9.99, 2, 5, 11, "Wowz");
-    OutsourcedPart outPart2 = new OutsourcedPart(5, "outPart2", 19.99, 1, 2, 19, "Nowz");
+    InHousePart inPart1 = new InHousePart(getNextPartID(), "inPart1", 9.99, 5, 1, 2, 97);
+    InHousePart inPart2 = new InHousePart(getNextPartID(), "inPart2", 10.99, 3, 6, 37, 91);
+    OutsourcedPart outPart1 = new OutsourcedPart(getNextPartID(), "outPart1", 9.99, 2, 5, 11, "Wowz");
+    OutsourcedPart outPart2 = new OutsourcedPart(getNextPartID(), "outPart2", 19.99, 1, 2, 19, "Nowz");
     allParts.addAll(inPart1, inPart2, outPart1, outPart2);
 
-    Product product1 = new Product(null, 1, "Product1", 9.99, 3, 1, 5);
-    Product product2 = new Product(null, 1, "Product1", 9.99, 3, 1, 5);
+    Product product1 = new Product(null, getNextProductID(), "Product 1", 9.99, 3, 1, 5);
+    Product product2 = new Product(null, getNextProductID(), "Product 2", 9.99, 3, 1, 5);
     product1.addAssociatedPart(inPart1);
     product1.addAssociatedPart(outPart1);
     product2.addAssociatedPart(inPart2);
