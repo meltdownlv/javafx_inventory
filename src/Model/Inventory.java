@@ -245,10 +245,10 @@ public class Inventory {
    *
    */
   public static void loadTestData() {
-    InHousePart inPart1 = new InHousePart(getNextPartID(), "inPart1", 9.99, 5, 1, 2, 97);
-    InHousePart inPart2 = new InHousePart(getNextPartID(), "inPart2", 10.99, 3, 6, 37, 91);
-    OutsourcedPart outPart1 = new OutsourcedPart(getNextPartID(), "outPart1", 9.99, 2, 5, 11, "Wowz");
-    OutsourcedPart outPart2 = new OutsourcedPart(getNextPartID(), "outPart2", 19.99, 1, 2, 19, "Nowz");
+    InHousePart inPart1 = new InHousePart(getNextPartID(), "inPart1", 9.99, 5, 1, 8, 97);
+    InHousePart inPart2 = new InHousePart(getNextPartID(), "inPart2", 10.99, 9, 6, 18, 91);
+    OutsourcedPart outPart1 = new OutsourcedPart(getNextPartID(), "outPart1", 9.99, 7, 5, 10, "Wowz");
+    OutsourcedPart outPart2 = new OutsourcedPart(getNextPartID(), "outPart2", 19.99, 6, 2, 12, "Nowz");
     allParts.addAll(inPart1, inPart2, outPart1, outPart2);
 
     Product product1 = new Product(null, getNextProductID(), "Product 1", 9.99, 3, 1, 5);

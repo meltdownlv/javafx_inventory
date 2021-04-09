@@ -1,5 +1,8 @@
 package View_Controller;
 
+import static View_Controller.MyAlerts.confirmPopup;
+import static View_Controller.MyAlerts.invalidPopup;
+
 import Model.InHousePart;
 import Model.Inventory;
 import Model.OutsourcedPart;
@@ -80,7 +83,6 @@ public class AddModifyPartController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    setPartTypes();
   }
 
   /**
@@ -91,7 +93,7 @@ public class AddModifyPartController implements Initializable {
    * @param event Action event from radio button selection from partTypeToggleGroup.
    */
   @FXML
-  public void partFormRadioClicked(ActionEvent event) {
+  private void partFormRadioClicked(ActionEvent event) {
     if(partTypeToggleGroup.getSelectedToggle().equals(partFormInHouseRadio)) {
       partFormTypeLabel.setText("Machine ID");
     }
@@ -102,20 +104,17 @@ public class AddModifyPartController implements Initializable {
 
   /**
    * The partFormCancelButtonPushed method has the user confirm they would like
-   * to leave the AddModifyPart screen and return to the main screen.
+   * to leave the AddModifyPart screen and return to the main screen. A call is made
+   * to MyAlerts.confirmPopup to complete user confirmation.
    *
    * @param event ActionEvent triggered by user pushing cancel button.
    */
   @FXML
-  public void partFormCancelButtonPushed(ActionEvent event) {
-    // TODO popup a confirmation dialog with branch handling. OK calls main screen.
-    Alert confirmation = new Alert(AlertType.CONFIRMATION);
-    confirmation.setTitle("Confirm Cancel");
-    confirmation.setHeaderText("All changes will be lost.");
-    confirmation.setContentText("ARE YOU SURE YOU WANT TO CONTINUE?");
+  private void partFormCancelButtonPushed(ActionEvent event) {
+    String header = "All changes will be lost.";
+    String content = "ARE YOU SURE YOU WANT TO CONTINUE?";
 
-    Optional<ButtonType> choice = confirmation.showAndWait();
-    if (choice.get() == ButtonType.OK) {
+    if (confirmPopup(event, header, content)) {
       goToMainScreen(event);
     }
 
@@ -130,7 +129,7 @@ public class AddModifyPartController implements Initializable {
    * @param event Action event triggered by user pushing the partFormSaveButton.
    */
   @FXML
-  public void partFormSaveButtonPushed(ActionEvent event) {
+  private void partFormSaveButtonPushed(ActionEvent event) {
     boolean okToSave = true;
     boolean inHouse = partTypeToggleGroup.getSelectedToggle().equals(partFormInHouseRadio);
     int machineId = -1;
@@ -186,10 +185,10 @@ public class AddModifyPartController implements Initializable {
         goToMainScreen(event);  // Return to main screen exit point 1 of 2.
         return;
       } else if (!addPart && inHouse) {
-        int id = currentPart.getId();
+        int id = Integer.parseInt(partFormIDText.getText());
         currentPart = new InHousePart(id, name, price, inv, min, max, machineId);
       } else {
-        int id = currentPart.getId();
+        int id = Integer.parseInt(partFormIDText.getText());
         currentPart = new OutsourcedPart(id, name, price, inv, min, max, companyName);
       }
       Inventory.updatePart(currentPartIndex, currentPart);
@@ -229,7 +228,37 @@ public class AddModifyPartController implements Initializable {
    */
   public void initAddPart() {
     addPart = true;
+    setPartTypes();
     partFormLabel.setText("Add Part");
+    partFormInHouseRadio.setSelected(true);
+    partFormTypeLabel.setText("Machine ID");
+  }
+
+  /**
+   * The initModPart method prepares the scene for modifying a part and
+   * updating the inventory. Text fields are set for all shared member fields before
+   * checking which sub-type the part belongs to for the final field.
+   */
+  public void initModPart(Part part) {
+    addPart = false;
+    setPartTypes();
+    partFormLabel.setText("Modify Part");
+    partFormOutsourcedRadio.setSelected(true);
+    partFormTypeLabel.setText("Company Name");
+
+    // Members shared by all Part classes.
+    partFormIDText.setText(String.valueOf(part.getId()));
+    partFormNameText.setText(part.getName());
+    partFormInvText.setText(String.valueOf(part.getStock()));
+    partFormPriceText.setText(String.valueOf(part.getPrice()));
+    partFormMaxText.setText(String.valueOf(part.getMax()));
+    partFormMinText.setText(String.valueOf(part.getMin()));
+    // Check for subclass member.
+    if (part instanceof InHousePart) {
+      partFormTypeText.setText(String.valueOf( ((InHousePart) part).getMachineID()) );
+    } else {
+      partFormTypeText.setText( ((OutsourcedPart)part).getCompanyName() );
+    }
   }
 
   /**
@@ -240,25 +269,6 @@ public class AddModifyPartController implements Initializable {
     partTypeToggleGroup = new ToggleGroup();
     this.partFormInHouseRadio.setToggleGroup(partTypeToggleGroup);
     this.partFormOutsourcedRadio.setToggleGroup(partTypeToggleGroup);
-    partFormInHouseRadio.setSelected(true);
-    partFormTypeLabel.setText("Machine ID");
   }
-
-
-  /**
-   * The invalidPopup is a helper method that will popup a warning message advising
-   * the type of issue along with a short message to the user.
-   *
-   * @param warnType The type of warning being issued to the user.
-   * @param message The context of the warning message to be displayed.
-   */
-  private void invalidPopup(String warnType, String message) {
-    Alert alert = new Alert(AlertType.WARNING);
-    alert.setTitle(warnType);
-    alert.setHeaderText(warnType);
-    alert.setContentText(message);
-    alert.showAndWait();
-  }
-
 
 }
