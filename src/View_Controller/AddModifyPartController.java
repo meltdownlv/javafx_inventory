@@ -83,7 +83,6 @@ public class AddModifyPartController implements Initializable {
     setPartTypes();
   }
 
-
   /**
    * The partFormRadioClicked method watches for radio button selection from
    * the partTypeToggleGroup on the form. Updates label text for the partFormType
@@ -148,8 +147,21 @@ public class AddModifyPartController implements Initializable {
       max = Integer.parseInt(partFormMaxText.getText().trim());
       if (inHouse) {
         machineId = Integer.parseInt(partFormTypeText.getText().trim());
+        if (machineId == 0) {
+          invalidPopup("Machine ID Error", "MachineID must be larger than 0.");
+          return;
+        }
       } else {
         companyName = partFormTypeText.getText().trim();
+        if (companyName.equals("")) {
+          invalidPopup("Company Name Error", "Company name must be filled in.");
+          return;
+        }
+      }
+      // Products must have names.
+      if (name.equals("")) {
+        invalidPopup("Part Name Error", "Part name must be filled in.");
+        return;
       }
       // Min value constraint check. Min < Max must be true.
       if (min >= max) {
