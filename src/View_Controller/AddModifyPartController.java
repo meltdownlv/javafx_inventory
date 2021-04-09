@@ -4,11 +4,17 @@ import Model.InHousePart;
 import Model.Inventory;
 import Model.OutsourcedPart;
 import Model.Part;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -17,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 
 /**
  * @author Sakae Watanabe
@@ -76,10 +83,6 @@ public class AddModifyPartController implements Initializable {
     setPartTypes();
   }
 
-  @FXML
-  public void partFormCancelButtonPushed(ActionEvent event) {
-
-  }
 
   /**
    * The partFormRadioClicked method watches for radio button selection from
@@ -99,27 +102,36 @@ public class AddModifyPartController implements Initializable {
   }
 
   /**
+   * The partFormCancelButtonPushed method has the user confirm they would like
+   * to leave the AddModifyPart screen and return to the main screen.
+   *
+   * @param event ActionEvent triggered by user pushing cancel button.
+   */
+  @FXML
+  public void partFormCancelButtonPushed(ActionEvent event) {
+    // TODO popup a confirmation dialog with branch handling. OK calls main screen.
+    Alert confirmation = new Alert(AlertType.CONFIRMATION);
+    confirmation.setTitle("Confirm Cancel");
+    confirmation.setHeaderText("All changes will be lost.");
+    confirmation.setContentText("ARE YOU SURE YOU WANT TO CONTINUE?");
+
+    Optional<ButtonType> choice = confirmation.showAndWait();
+    if (choice.get() == ButtonType.OK) {
+      goToMainScreen(event);
+    }
+
+  }
+
+  /**
    * The partFormSaveButtonPushed determines if we are adding or modifying the Part
-   * and calls the proper method for saving the part.
+   * and attempts to parse the fields into the proper data types to save a new part to
+   * the inventory. NumberFormatException handled through message dialog to the user.
+   * Checks for Min < Max and Min < Inv < Max before moving to save or update part.
    *
    * @param event Action event triggered by user pushing the partFormSaveButton.
    */
   @FXML
   public void partFormSaveButtonPushed(ActionEvent event) {
-      if (addPart) {
-        saveNewPart();
-      } //else {
-//        modifyExistingPart();
-//      }
-  }
-
-  /**
-   * The saveNewPart method attempts to parse the fields into the proper data types
-   * in order to save a new part to the inventory. NumberFormatException handled through
-   * message dialog to the user. Checks for Min < Max and Min < Inv < Max before moving
-   * to save part.
-   */
-  public void saveNewPart() {
     boolean okToSave = true;
     boolean inHouse = partTypeToggleGroup.getSelectedToggle().equals(partFormInHouseRadio);
     int machineId = -1;
@@ -137,7 +149,7 @@ public class AddModifyPartController implements Initializable {
       if (inHouse) {
         machineId = Integer.parseInt(partFormTypeText.getText().trim());
       } else {
-          companyName = partFormTypeText.getText().trim();
+        companyName = partFormTypeText.getText().trim();
       }
       // Min value constraint check. Min < Max must be true.
       if (min >= max) {
@@ -149,24 +161,54 @@ public class AddModifyPartController implements Initializable {
         invalidPopup("Inv Value Error", "Inv must be between Min and Max");
         return;
       }
-    // Assign next available id from Inventory
-      int id = Inventory.getNextPartID();
-      if (inHouse) {
+      // Add new part to inventory or update part being modified.
+      if (addPart) {
+        // Assign next available id from Inventory for a new part
+        int id = Inventory.getNextPartID();
+        if (inHouse) {
+          currentPart = new InHousePart(id, name, price, inv, min, max, machineId);
+        } else {
+          currentPart = new OutsourcedPart(id, name, price, inv, min, max, companyName);
+        }
+        Inventory.addPart(currentPart);
+        goToMainScreen(event);  // Return to main screen exit point 1 of 2.
+        return;
+      } else if (!addPart && inHouse) {
+        int id = currentPart.getId();
         currentPart = new InHousePart(id, name, price, inv, min, max, machineId);
       } else {
+        int id = currentPart.getId();
         currentPart = new OutsourcedPart(id, name, price, inv, min, max, companyName);
       }
-      Inventory.addPart(currentPart);
-      // TODO Return to main screen function
+      Inventory.updatePart(currentPartIndex, currentPart);
+      goToMainScreen(event); // Return to main screen exit point 2 of 2.
     } catch (NumberFormatException e) {
-      okToSave = false;
       invalidPopup("Invalid Input", "Please check your input.\n" +
-                    "Min, Max, and Inv fields must be whole numbers.\n" +
-                    "Price field must contain a number.\n" +
-                    "For InHouse parts MachineID must be a whole number.");
+          "Min, Max, and Inv fields must be whole numbers.\n" +
+          "Price field must contain a number.\n" +
+          "For InHouse parts MachineID must be a whole number.");
     }
   }
 
+  /**
+   * The goToMainScreen helper method is called when product has been added or modified.
+   *
+   * @param event Action event passed from the partFormSaveButtonPushed method.
+   */
+  private void goToMainScreen(ActionEvent event) {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("/View_Controller/MainScreen.fxml"));
+      Parent mainScreenParent = loader.load();
+      Scene mainScreenScene = new Scene(mainScreenParent);
+
+      Stage mainScreenWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      mainScreenWindow.setScene(mainScreenScene);
+      mainScreenWindow.show();
+    } catch (IOException e) {
+      invalidPopup("IOException", e.getMessage());
+    }
+  }
 
   /**
    * The initAddPart method prepares the scene for adding a new part.
