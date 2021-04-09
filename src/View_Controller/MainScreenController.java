@@ -27,7 +27,6 @@ import javafx.stage.Stage;
  * @author Sakae Watanabe
  */
 public class MainScreenController implements Initializable {
-  // TODO: Bring in controller skeleton and start working on logic for main screen Part4.
 
   @FXML
   private TextField mainPartSearchText;

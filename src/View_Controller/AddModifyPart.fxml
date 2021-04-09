@@ -95,12 +95,20 @@
                      </font>
                   </Label>
                   <Label text="Max" GridPane.rowIndex="4">
-                     <GridPane.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </GridPane.margin>
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="Min" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label fx:id="partFormTypeLabel" text="Company Name" GridPane.rowIndex="5">
                      <GridPane.margin>
@@ -111,17 +119,9 @@
                   <TextField fx:id="partFormNameText" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="partFormInvText" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="partFormPriceText" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="partFormMaxText" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="partFormMaxText" maxHeight="25.0" maxWidth="128.0" prefHeight="25.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="partFormMinText" maxHeight="25.0" maxWidth="128.0" prefHeight="25.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                   <TextField fx:id="partFormTypeText" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" text="Min" GridPane.columnIndex="2" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="30.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <TextField fx:id="partFormMinText" onAction="#sillyThings" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                </children>
             </GridPane>
             <AnchorPane prefHeight="51.0" prefWidth="590.0">
