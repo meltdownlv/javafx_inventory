@@ -1,7 +1,12 @@
 package View_Controller;
 
+import Model.Inventory;
+import Model.Part;
+import Model.Product;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
@@ -10,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * @author Sakae Watanabe
@@ -44,37 +50,37 @@ public class AddModifyProductController implements Initializable {
   private Button productFormSearchButton;
 
   @FXML
-  private TableView<?> productFormAvailablePartView;
+  private TableView<Part> productFormAvailablePartView;
 
   @FXML
-  private TableColumn<?, ?> availablePartIDColumn;
+  private TableColumn<Part, Integer> availablePartIDColumn;
 
   @FXML
-  private TableColumn<?, ?> availablePartNameColumn;
+  private TableColumn<Part, String> availablePartNameColumn;
 
   @FXML
-  private TableColumn<?, ?> availablePartInvColumn;
+  private TableColumn<Part, Integer> availablePartInvColumn;
 
   @FXML
-  private TableColumn<?, ?> availablePartPriceColumn;
+  private TableColumn<Part, Double> availablePartPriceColumn;
 
   @FXML
   private Button productFormAddPartButton;
 
   @FXML
-  private TableView<?> productFormAssociatedPartView;
+  private TableView<Part> productFormAssociatedPartView;
 
   @FXML
-  private TableColumn<?, ?> associatedPartIDColumn;
+  private TableColumn<Part, Integer> associatedPartIDColumn;
 
   @FXML
-  private TableColumn<?, ?> associatedPartNameColumn;
+  private TableColumn<Part, String> associatedPartNameColumn;
 
   @FXML
-  private TableColumn<?, ?> associatedPartInvColumn;
+  private TableColumn<Part, Integer> associatedPartInvColumn;
 
   @FXML
-  private TableColumn<?, ?> associatedPartPriceColumn;
+  private TableColumn<Part, String> associatedPartPriceColumn;
 
   @FXML
   private Button removeAssociatedPartButton;
@@ -85,34 +91,67 @@ public class AddModifyProductController implements Initializable {
   @FXML
   private Button productFormCancelButton;
 
+  /** The current Product is used when modifying or adding a new product. */
+  private Product currentProduct;
+  /** Flag to indicate if we are adding a new part. */
+  private boolean addProduct;
+  /** Index for currentProduct being modified in the main Inventory. */
+  private int currentProductIndex;
+  /** The associatedPartList holds the parts associated with the current product. */
+  private ObservableList<Part> associatedPartList = FXCollections.observableArrayList();
+
+  /**
+   * The Initialize method sets up items for both available parts list and associated
+   * part list table views.
+   * TODO: update javadoc for Main Screen initialize method.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    // Setup available inventory parts table
+    availablePartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+    availablePartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    availablePartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+    availablePartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    productFormAvailablePartView.setItems(Inventory.getAllParts());
+
+    // Setup associated parts table
+    associatedPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+    associatedPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    associatedPartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+    associatedPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    productFormAssociatedPartView.setItems(associatedPartList);
+  }
+
+  @FXML
+  private void addPartToProductPushed(ActionEvent event) {
 
   }
 
   @FXML
-  void addPartToProductPushed(ActionEvent event) {
+  private void productFormCancelButtonPushed(ActionEvent event) {
 
   }
 
   @FXML
-  void productFormCancelButtonPushed(ActionEvent event) {
+  private void removeAssociatedButtonPushed(ActionEvent event) {
 
   }
 
   @FXML
-  void removeAssociatedButtonPushed(ActionEvent event) {
+  private void saveProductButtonPushed(ActionEvent event) {
 
   }
 
   @FXML
-  void saveProductButtonPushed(ActionEvent event) {
+  private void searchProductsHandler(ActionEvent event) {
 
   }
 
-  @FXML
-  void searchProductsHandler(ActionEvent event) {
+  //===========================================================================
+  // Scene Initialization Helper Methods
+  //===========================================================================
+  public void initAddProduct() {
+    addProduct = true;
 
   }
-
 }

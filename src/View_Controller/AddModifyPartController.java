@@ -221,6 +221,10 @@ public class AddModifyPartController implements Initializable {
     }
   }
 
+  //===========================================================================
+  // Scene Initialization Helper Methods
+  //===========================================================================
+
   /**
    * The initAddPart method prepares the scene for adding a new part.
    * Form label is updated to represent current process. Sets addPart
