@@ -88,7 +88,7 @@ public class AddModifyProductController implements Initializable {
   private TableColumn<Part, Integer> associatedPartInvColumn;
 
   @FXML
-  private TableColumn<Part, String> associatedPartPriceColumn;
+  private TableColumn<Part, Double> associatedPartPriceColumn;
 
   @FXML
   private Button productFormAddPartButton;

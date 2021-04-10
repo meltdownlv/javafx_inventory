@@ -1,6 +1,5 @@
 package View_Controller;
 
-import Model.Part;
 import java.text.NumberFormat;
 import java.util.Optional;
 import javafx.event.ActionEvent;
@@ -18,6 +17,9 @@ import javafx.scene.control.TableColumn;
  */
 public class MyUtils {
 
+  //===========================================================================
+  // Popup Dialog Helper Methods
+  //===========================================================================
   /**
    * The invalidPopup method will popup a warning message advising
    * the type of issue along with a short message to the user.
@@ -55,6 +57,9 @@ public class MyUtils {
     return false;
   }
 
+  //===========================================================================
+  // Table Formatting Helper Methods
+  //===========================================================================
   /**
    * The formatPricing method sets up a cellFactory for a table column using a
    * double and formats as currency with two decimal places.
@@ -63,7 +68,7 @@ public class MyUtils {
    */
   protected static void formatPricing(TableColumn tableColumn) {
     NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-    tableColumn.setCellFactory(tc -> new TableCell<Part, Double>() {
+    tableColumn.setCellFactory(tc -> new TableCell<Object, Double>() {
       @Override
       protected void updateItem(Double price, boolean empty) {
         super.updateItem(price, empty);
@@ -76,4 +81,5 @@ public class MyUtils {
       }
     });
   }
+
 }
