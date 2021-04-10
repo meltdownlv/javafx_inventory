@@ -27,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
+ * TODO Write Javadoc comments for class header and all @FXML fields
  * @author Sakae Watanabe
  */
 public class AddModifyProductController implements Initializable {
@@ -131,6 +132,10 @@ public class AddModifyProductController implements Initializable {
     productFormAssociatedPartView.setItems(associatedPartList);
   }
 
+  //===========================================================================
+  // Associate Part List Methods
+  //===========================================================================
+
   /**
    * The searchAvailablePartsHandler attempts to filter parts matching the given query.
    * If no parts are found a popup dialog is generated letting the user know.If no
@@ -146,7 +151,10 @@ public class AddModifyProductController implements Initializable {
     ObservableList<Part> searchPartResults = FXCollections.observableArrayList();
     try {
       int id = Integer.parseInt(searchPart);
-      searchPartResults.add(Inventory.lookupPart(id));
+      Part foundPart = Inventory.lookupPart(id);
+      if (foundPart != null) {
+        searchPartResults.add(foundPart);
+      }
     } catch (NumberFormatException e) {
       searchPartResults.addAll(Inventory.lookupPart(searchPart));
     }
@@ -195,6 +203,76 @@ public class AddModifyProductController implements Initializable {
     }
   }
 
+  //===========================================================================
+  // Save & Cancel Button Methods
+  //===========================================================================
+
+  /**
+   * The saveProductButtonPushed method determines if we are adding or modifying the
+   * product and attempts to parse fields into proper data types to save a new product
+   * to the inventory. NumberFormatException handled through message dialog to the user.
+   * <p>
+   * <ul>
+   *   <li>Constraints for all Products</li>
+   *   <ul>
+   *     <li>Inv, Min, Max must be integers.</li>
+   *     <li>Price must be a number.</li>
+   *     <li>Min < Max</li>
+   *     <li>Min < Inv < Max</li>
+   *     <li>Name must be filled in.</li>
+   *   </ul>
+   * </ul>
+   * </p>
+   *
+   *
+   * @param event Event triggered by user pushing the saveProductButton.
+   */
+  @FXML
+  private void saveProductButtonPushed(ActionEvent event) {
+    int inv, min, max;
+    double price;
+    String name;
+
+    try {
+      name = productFormNameText.getText().trim();
+      price = Double.parseDouble(productFormPriceText.getText().trim());
+      inv = Integer.parseInt(productFormInvText.getText().trim());
+      min = Integer.parseInt(productFormMinText.getText().trim());
+      max = Integer.parseInt(productFormMaxText.getText().trim());
+      // Products must have names.
+      if (name.equals("")) {
+        invalidPopup("Part Name Error", "Part name must be filled in.");
+        return;
+      }
+      // Min value constraint check. Min < Max must be true.
+      if (min >= max) {
+        invalidPopup("Min Value Error", "Min must be less than Max");
+        return;
+      }
+      // Inv value constraint check. Min < Inv < Max must be true.
+      if ((inv <= min) || (inv >= max)) {
+        invalidPopup("Inv Value Error", "Inv must be between Min and Max");
+        return;
+      }
+      // Constraints passed -> save new product OR update product at index.
+      if (addProduct) {
+        int id = Inventory.getNextProductID();
+        currentProduct = new Product(associatedPartList,id, name, price, inv, min, max);
+        Inventory.addProduct(currentProduct);
+        goToMainScreen(event);
+      } else {
+          int id = currentProduct.getId();
+          currentProduct = new Product(associatedPartList, id, name, price, inv, min, max);
+          Inventory.updateProduct(currentProductIndex, currentProduct);
+          goToMainScreen(event);
+      }
+     } catch (NumberFormatException e) {
+        invalidPopup("Invalid Input", "Please check your input.\n" +
+          "Min, Max, and Inv fields must be whole numbers.\n" +
+          "Price field must contain a number.");
+    }
+  }
+
   /**
    * The productFormCancelButtonPushed method has the user confirm they would like
    * to leave the AddModifyProduct screen and return to the main screen. A confirmation
@@ -212,9 +290,40 @@ public class AddModifyProductController implements Initializable {
     }
   }
 
-  @FXML
-  private void saveProductButtonPushed(ActionEvent event) {
 
+  //===========================================================================
+  // Scene Initialization & Helper Methods
+  //===========================================================================
+
+  /**
+   * The initAddProduct helper method sets flag in the controller indicating we
+   * are adding a product and sets the appropriate text on the form label.
+   */
+  public void initAddProduct() {
+    addProduct = true;
+    productFormLabel.setText("Add Product");
+  }
+
+  /**
+   * The initAddProduct helper method sets flag in the controller indicating we
+   * are modifying a product and sets the appropriate text on the form label.
+   * Associated part list table view is set to the parts of current product.
+   */
+  public void initModProduct(Product product, int productIndex) {
+    addProduct = false;
+    currentProduct = product;
+    currentProductIndex = productIndex;
+    // Set product information fields.
+    productFormIDText.setText( String.valueOf(product.getId()) );
+    productFormNameText.setText( product.getName() );
+    productFormPriceText.setText( String.valueOf(product.getPrice()) );
+    productFormInvText.setText( String.valueOf(product.getStock()) );
+    productFormMaxText.setText( String.valueOf(product.getMax()) );
+    productFormMinText.setText( String.valueOf(product.getMin()) );
+    // Set the list for associated parts in the view.
+    associatedPartList.setAll( currentProduct.getAllAssociatedParts() );
+
+    productFormLabel.setText("Modify Product");
   }
 
   /**
@@ -235,12 +344,5 @@ public class AddModifyProductController implements Initializable {
     } catch (IOException e) {
       invalidPopup("IOException", e.getMessage());
     }
-  }
-  //===========================================================================
-  // Scene Initialization Helper Methods
-  //===========================================================================
-  public void initAddProduct() {
-    addProduct = true;
-
   }
 }

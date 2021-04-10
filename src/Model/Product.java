@@ -165,12 +165,14 @@ public class Product {
    */
   public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
     boolean deleted = false;
-    for (Part p : associatedParts) {
+    if (!associatedParts.isEmpty()){
+      for (Part p : associatedParts) {
         if (p.getId() == selectedAssociatedPart.getId()) {
           associatedParts.remove(p);
           deleted = true;
           break;
         }
+      }
     }
     return deleted;
   }

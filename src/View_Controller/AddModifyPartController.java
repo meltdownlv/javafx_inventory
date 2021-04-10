@@ -25,6 +25,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 /**
+ * TODO Write Javadoc comments for class header and all @FXML fields
  * @author Sakae Watanabe
  */
 public class AddModifyPartController implements Initializable {
@@ -81,6 +82,10 @@ public class AddModifyPartController implements Initializable {
 
   }
 
+  //===========================================================================
+  // Button Handler Methods
+  //===========================================================================
+
   /**
    * The partFormRadioClicked method watches for radio button selection from
    * the partTypeToggleGroup on the form. Updates label text for the partFormType
@@ -95,23 +100,6 @@ public class AddModifyPartController implements Initializable {
     }
     if (partTypeToggleGroup.getSelectedToggle().equals(partFormOutsourcedRadio)) {
       partFormTypeLabel.setText("Company Name");
-    }
-  }
-
-  /**
-   * The partFormCancelButtonPushed method has the user confirm they would like
-   * to leave the AddModifyPart screen and return to the main screen. A confirmation
-   * dialog is shown to the user.
-   *
-   * @param event Event triggered by user pushing cancel button.
-   */
-  @FXML
-  private void partFormCancelButtonPushed(ActionEvent event) {
-    String header = "All changes will be lost.";
-    String content = "ARE YOU SURE YOU WANT TO CONTINUE?";
-
-    if (confirmPopup(event, header, content)) {
-      goToMainScreen(event);
     }
   }
 
@@ -140,7 +128,7 @@ public class AddModifyPartController implements Initializable {
    * </ul>
    * </p>
    *
-   * @param event Action event triggered by user pushing the partFormSaveButton.
+   * @param event Event triggered by user pushing the partFormSaveButton.
    */
   @FXML
   private void partFormSaveButtonPushed(ActionEvent event) {
@@ -215,27 +203,25 @@ public class AddModifyPartController implements Initializable {
   }
 
   /**
-   * The goToMainScreen helper method is called when product has been added or modified.
+   * The partFormCancelButtonPushed method has the user confirm they would like
+   * to leave the AddModifyPart screen and return to the main screen. A confirmation
+   * dialog is shown to the user.
    *
-   * @param event Action event passed from the partFormSaveButtonPushed method.
+   * @param event Event triggered by user pushing cancel button.
    */
-  private void goToMainScreen(ActionEvent event) {
-    try {
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("/View_Controller/MainScreen.fxml"));
-      Parent mainScreenParent = loader.load();
-      Scene mainScreenScene = new Scene(mainScreenParent);
+  @FXML
+  private void partFormCancelButtonPushed(ActionEvent event) {
+    String header = "All changes will be lost.";
+    String content = "ARE YOU SURE YOU WANT TO CONTINUE?";
 
-      Stage mainScreenWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-      mainScreenWindow.setScene(mainScreenScene);
-      mainScreenWindow.show();
-    } catch (IOException e) {
-      invalidPopup("IOException", e.getMessage());
+    if (confirmPopup(event, header, content)) {
+      goToMainScreen(event);
     }
   }
 
+
   //===========================================================================
-  // Scene Initialization Helper Methods
+  // Scene Initialization & Helper Methods
   //===========================================================================
 
   /**
@@ -256,23 +242,24 @@ public class AddModifyPartController implements Initializable {
    * updating the inventory. Text fields are set for all shared member fields before
    * checking which sub-type the part belongs to for the final field.
    */
-  public void initModPart(Part part) {
+  public void initModPart(Part part, int partIndex) {
     addPart = false;
+    currentPartIndex = partIndex;
     setPartTypes();
     partFormLabel.setText("Modify Part");
     partFormOutsourcedRadio.setSelected(true);
     partFormTypeLabel.setText("Company Name");
 
     // Members shared by all Part classes.
-    partFormIDText.setText(String.valueOf(part.getId()));
-    partFormNameText.setText(part.getName());
-    partFormInvText.setText(String.valueOf(part.getStock()));
-    partFormPriceText.setText(String.valueOf(part.getPrice()));
-    partFormMaxText.setText(String.valueOf(part.getMax()));
-    partFormMinText.setText(String.valueOf(part.getMin()));
+    partFormIDText.setText( String.valueOf(part.getId()) );
+    partFormNameText.setText( part.getName() );
+    partFormInvText.setText( String.valueOf(part.getStock()) );
+    partFormPriceText.setText( String.valueOf(part.getPrice()) );
+    partFormMaxText.setText( String.valueOf(part.getMax()) );
+    partFormMinText.setText( String.valueOf(part.getMin()) );
     // Check for subclass member.
     if (part instanceof InHousePart) {
-      partFormTypeText.setText(String.valueOf( ((InHousePart) part).getMachineID()) );
+      partFormTypeText.setText( String.valueOf( ((InHousePart) part).getMachineID()) );
     } else {
       partFormTypeText.setText( ((OutsourcedPart)part).getCompanyName() );
     }
@@ -288,4 +275,23 @@ public class AddModifyPartController implements Initializable {
     this.partFormOutsourcedRadio.setToggleGroup(partTypeToggleGroup);
   }
 
+  /**
+   * The goToMainScreen helper method is called when product has been added or modified.
+   *
+   * @param event Action event passed from the partFormSaveButtonPushed method.
+   */
+  private void goToMainScreen(ActionEvent event) {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("/View_Controller/MainScreen.fxml"));
+      Parent mainScreenParent = loader.load();
+      Scene mainScreenScene = new Scene(mainScreenParent);
+
+      Stage mainScreenWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      mainScreenWindow.setScene(mainScreenScene);
+      mainScreenWindow.show();
+    } catch (IOException e) {
+      invalidPopup("IOException", e.getMessage());
+    }
+  }
 }
