@@ -1,10 +1,14 @@
 package View_Controller;
 
+import Model.Part;
+import java.text.NumberFormat;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 
 /**
  * The MyAlerts class contains static methods to be used across multiple controller
@@ -51,4 +55,25 @@ public class MyUtils {
     return false;
   }
 
+  /**
+   * The formatPricing method sets up a cellFactory for a table column using a
+   * double and formats as currency with two decimal places.
+   *
+   * @param tableColumn TableColumn that will be populated with Double values.
+   */
+  protected static void formatPricing(TableColumn tableColumn) {
+    NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+    tableColumn.setCellFactory(tc -> new TableCell<Part, Double>() {
+      @Override
+      protected void updateItem(Double price, boolean empty) {
+        super.updateItem(price, empty);
+        if (empty) {
+          setText(null);
+        } else {
+          setText(currencyFormat.format(price));
+        }
+        super.setStyle("-fx-alignment: CENTER-RIGHT;");
+      }
+    });
+  }
 }

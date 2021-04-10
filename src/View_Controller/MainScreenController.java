@@ -1,6 +1,7 @@
 package View_Controller;
 
 import static View_Controller.MyUtils.confirmPopup;
+import static View_Controller.MyUtils.formatPricing;
 import static View_Controller.MyUtils.invalidPopup;
 
 import Model.Inventory;
@@ -8,6 +9,7 @@ import Model.Part;
 import Model.Product;
 import java.io.IOException;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -108,6 +111,8 @@ public class MainScreenController implements Initializable {
     mainPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     mainPartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
     mainPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    formatPricing(mainPartPriceColumn);
+
     mainPartTableView.setItems(Inventory.getAllParts());
 
     // Setup products table and load full list from Inventory.
@@ -115,6 +120,8 @@ public class MainScreenController implements Initializable {
     mainProductNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     mainProductInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
     mainProductPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    formatPricing(mainProductPriceColumn);
+
     mainProductTableView.setItems(Inventory.getAllProducts());
 
   }

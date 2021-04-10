@@ -1,6 +1,7 @@
 package View_Controller;
 
 import static View_Controller.MyUtils.confirmPopup;
+import static View_Controller.MyUtils.formatPricing;
 import static View_Controller.MyUtils.invalidPopup;
 
 import Model.Inventory;
@@ -122,6 +123,7 @@ public class AddModifyProductController implements Initializable {
     availablePartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     availablePartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
     availablePartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    formatPricing(availablePartPriceColumn);
     productFormAvailablePartView.setItems(Inventory.getAllParts());
 
     // Setup associated parts table
@@ -129,6 +131,7 @@ public class AddModifyProductController implements Initializable {
     associatedPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     associatedPartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
     associatedPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    formatPricing(associatedPartPriceColumn);
     productFormAssociatedPartView.setItems(associatedPartList);
   }
 
