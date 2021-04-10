@@ -254,6 +254,10 @@ public class AddModifyProductController implements Initializable {
         invalidPopup("Inv Value Error", "Inv must be between Min and Max");
         return;
       }
+      if (price < getAssociatedPartCost()) {
+        invalidPopup("Pricing Error", "Product price should be at least the sum of it's parts.");
+        return;
+      }
       // Constraints passed -> save new product OR update product at index.
       if (addProduct) {
         int id = Inventory.getNextProductID();
@@ -344,5 +348,19 @@ public class AddModifyProductController implements Initializable {
     } catch (IOException e) {
       invalidPopup("IOException", e.getMessage());
     }
+  }
+
+  /**
+   * The getAssociatedPartCost method calculates the sum of the associated parts list
+   * prices.
+   *
+   * @return Double value representing the sum of the associated parts prices.
+   */
+  private double getAssociatedPartCost() {
+    double sumOfParts = 0;
+    for (Part p : associatedPartList) {
+      sumOfParts += p.getPrice();
+    }
+    return sumOfParts;
   }
 }
