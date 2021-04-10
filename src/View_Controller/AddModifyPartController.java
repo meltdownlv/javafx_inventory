@@ -1,7 +1,7 @@
 package View_Controller;
 
-import static View_Controller.MyAlerts.confirmPopup;
-import static View_Controller.MyAlerts.invalidPopup;
+import static View_Controller.MyUtils.confirmPopup;
+import static View_Controller.MyUtils.invalidPopup;
 
 import Model.InHousePart;
 import Model.Inventory;
@@ -9,7 +9,6 @@ import Model.OutsourcedPart;
 import Model.Part;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,10 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -104,10 +100,10 @@ public class AddModifyPartController implements Initializable {
 
   /**
    * The partFormCancelButtonPushed method has the user confirm they would like
-   * to leave the AddModifyPart screen and return to the main screen. A call is made
-   * to MyAlerts.confirmPopup to complete user confirmation.
+   * to leave the AddModifyPart screen and return to the main screen. A confirmation
+   * dialog is shown to the user.
    *
-   * @param event ActionEvent triggered by user pushing cancel button.
+   * @param event Event triggered by user pushing cancel button.
    */
   @FXML
   private void partFormCancelButtonPushed(ActionEvent event) {
@@ -117,20 +113,37 @@ public class AddModifyPartController implements Initializable {
     if (confirmPopup(event, header, content)) {
       goToMainScreen(event);
     }
-
   }
 
   /**
    * The partFormSaveButtonPushed determines if we are adding or modifying the Part
    * and attempts to parse the fields into the proper data types to save a new part to
    * the inventory. NumberFormatException handled through message dialog to the user.
-   * Checks for Min < Max and Min < Inv < Max before moving to save or update part.
+   * <p>
+   * <ul>
+   *   <li>Constraints for all Parts</li>
+   *   <ul>
+   *     <li>Inv, Min, Max must be integers.</li>
+   *     <li>Price must be a number.</li>
+   *     <li>Min < Max</li>
+   *     <li>Min < Inv < Max</li>
+   *     <li>Name must be filled in.</li>
+   *   </ul>
+   *   <em><li>For InHouseParts</li></em>
+   *   <ul>
+   *     <li>MachineID must be an integer.</li>
+   *   </ul>
+   *   <em><li>For OutsourcedParts</li></em>
+   *    <ul>
+   *      <li>CompanyName must be filled in.</li>
+   *    </ul>
+   * </ul>
+   * </p>
    *
    * @param event Action event triggered by user pushing the partFormSaveButton.
    */
   @FXML
   private void partFormSaveButtonPushed(ActionEvent event) {
-    boolean okToSave = true;
     boolean inHouse = partTypeToggleGroup.getSelectedToggle().equals(partFormInHouseRadio);
     int machineId = -1;
     int inv, min, max;

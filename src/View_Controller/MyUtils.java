@@ -12,7 +12,7 @@ import javafx.scene.control.ButtonType;
  *
  * @author Sakae Watanabe
  */
-public class MyAlerts {
+public class MyUtils {
 
   /**
    * The invalidPopup method will popup a warning message advising
@@ -50,4 +50,5 @@ public class MyAlerts {
     }
     return false;
   }
+
 }
