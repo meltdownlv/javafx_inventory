@@ -1,6 +1,5 @@
 package View_Controller;
 
-import static Model.Inventory.lookupPart;
 import static View_Controller.MyUtils.confirmPopup;
 import static View_Controller.MyUtils.invalidPopup;
 
@@ -318,9 +317,29 @@ public class MainScreenController implements Initializable {
     }
   }
 
+  /**
+   * The deleteProductButtonPushed method attempts to delete the selected product from the
+   * inventory. Confirmation dialog is given to user if the product is selected and has
+   * no associated parts. Popup dialogs are presented to the user if no product is selected
+   * or the product still has associated parts.
+   *
+   * @param event Event triggered by user pushing the deleteProductButton.
+   */
   @FXML
   private void deleteProductButtonPushed(ActionEvent event) {
-    // TODO Implement delete product button pushed method - must confirm part list is empty.
+    Product selectedProduct = mainProductTableView.getSelectionModel().getSelectedItem();
+    if (selectedProduct != null) {
+      if (selectedProduct.getAllAssociatedParts().isEmpty()) {
+          if (confirmPopup(event, "Delete Product?", "Product will be deleted from inventory.")); {
+            Inventory.deleteProduct(selectedProduct);
+        }
+      } else {
+        invalidPopup("Associated Parts Warning",
+            "You must remove all associated parts before deleting product.");
+      }
+    } else {
+        invalidPopup("No Product Selected.", "Please select a product to delete.");
+    }
   }
 
 
@@ -328,6 +347,12 @@ public class MainScreenController implements Initializable {
   // Additional Button Handlers
   //===========================================================================
 
+  /**
+   * The exitButtonPushed method confirms if user would like to exit the program and calls
+   * exit if user pushes ok.
+   *
+   * @param event Event triggered by user pushing exitButton.
+   */
   @FXML
   private void exitButtonPushed(ActionEvent event) {
     if (confirmPopup(event, "Are you sure?", "Please confirm to close the program.")) {
