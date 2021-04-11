@@ -22,12 +22,12 @@ import javafx.stage.Stage;
  *   </strong>
  * </p>
  * <p>
- *  *   <strong>
- *  *     RUNTIME EXCEPTION:
+ *   <strong>
+ *     RUNTIME EXCEPTION:
  *        Located in the AddModifyProductController class for
  *        searchAvailablePartsHandler.
- *  *   </strong>
- *  * </p>
+ *   </strong>
+ * </p>
  * <p>
  *   <strong>
  *     JAVADOCS: LOCATED IN TOP LEVEL OF PROJECT DIRECTORY IN FOLDER JAVADOCS
