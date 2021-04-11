@@ -10,7 +10,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 
 /**
- * The MyAlerts class contains static methods to be used across multiple controller
+ * The MyUtils class contains static methods to be used across multiple controller
  * files belonging to the View_Controller package within the Inventory project.
  *
  * @author Sakae Watanabe

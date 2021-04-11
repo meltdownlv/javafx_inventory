@@ -25,49 +25,83 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 /**
- * TODO Write Javadoc comments for class header and all @FXML fields
+ * The AddModifyPartController class and associated methods handle logic and
+ * updates to the Add/Modify part form view.
+ *
  * @author Sakae Watanabe
  */
 public class AddModifyPartController implements Initializable {
+
+  //===========================================================================
+  // Label & Text Field FXIDS
+  //===========================================================================
+
+  /** Part form label located in the top left corner indicating add or modify */
   @FXML
   private Label partFormLabel;
 
+  /** Radio button indicating if part is InHouse type. */
   @FXML
   private RadioButton partFormInHouseRadio;
 
+  /** Radio button indicating if part is Outsourced type. */
   @FXML
   private RadioButton partFormOutsourcedRadio;
 
+  /**
+   * Part type label displaying either machine ID or company name.
+   *
+   * Machine ID if InHouse part is selected.
+   * Company name if Outsourced part is selected.
+   */
   @FXML
   private Label partFormTypeLabel;
 
+  /** Part form ID text field for data collection. */
   @FXML
   private TextField partFormIDText;
 
+  /** Part form Name text field for data collection. */
   @FXML
   private TextField partFormNameText;
 
+  /** Part form Inventory text field for data collection. */
   @FXML
   private TextField partFormInvText;
 
+  /** Part form Price text field for data collection. */
   @FXML
   private TextField partFormPriceText;
 
+  /** Part form Maximum text field for data collection. */
   @FXML
   private TextField partFormMaxText;
 
-  @FXML
-  private TextField partFormTypeText;
-
+  /** Part form Minimum text field for data collection. */
   @FXML
   private TextField partFormMinText;
 
+  /** Part form Type text field for data collection. */
+  @FXML
+  private TextField partFormTypeText;
+
+
+  //===========================================================================
+  // Utility Button FXIDS
+  //===========================================================================
+
+  /** Button object for the save button on part form. */
   @FXML
   private Button partFormSaveButton;
 
+  /** Button object for the cancel button on part form.*/
   @FXML
   private Button partFormCancelButton;
 
+
+  //===========================================================================
+  // Class Members for Add/Modify Operations
+  //===========================================================================
   /** The current Part is used when modifying or adding a part. */
   private Part currentPart;
   /** The toggle group for part type radio buttons. */
@@ -77,21 +111,17 @@ public class AddModifyPartController implements Initializable {
   /** Index for currentPart being modified in the main Inventory. */
   private int currentPartIndex;
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-
-  }
-
   //===========================================================================
   // Button Handler Methods
   //===========================================================================
 
   /**
    * The partFormRadioClicked method watches for radio button selection from
-   * the partTypeToggleGroup on the form. Updates label text for the partFormType
-   * label.
+   * the partTypeToggleGroup on the form. Updates label text for the
+   * partFormType label.
    *
-   * @param event Action event from radio button selection from partTypeToggleGroup.
+   * @param event Action event from radio button selection from
+   *              partTypeToggleGroup.
    */
   @FXML
   private void partFormRadioClicked(ActionEvent event) {
@@ -104,9 +134,11 @@ public class AddModifyPartController implements Initializable {
   }
 
   /**
-   * The partFormSaveButtonPushed determines if we are adding or modifying the Part
-   * and attempts to parse the fields into the proper data types to save a new part to
-   * the inventory. NumberFormatException handled through message dialog to the user.
+   * The partFormSaveButtonPushed determines if we are adding or modifying the
+   * Part and attempts to parse the fields into the proper data types to save a
+   * new part to the inventory. NumberFormatException handled through message
+   * dialog to the user.
+   *
    * <p>
    * <ul>
    *   <li>Constraints for all Parts</li>
@@ -158,24 +190,19 @@ public class AddModifyPartController implements Initializable {
           return;
         }
       }
-      // Products must have names.
       if (name.equals("")) {
         invalidPopup("Part Name Error", "Part name must be filled in.");
         return;
       }
-      // Min value constraint check. Min < Max must be true.
       if (min >= max) {
         invalidPopup("Min Value Error", "Min must be less than Max");
         return;
       }
-      // Inv value constraint check. Min < Inv < Max must be true.
       if ((inv <= min) || (inv >= max)) {
         invalidPopup("Inv Value Error", "Inv must be between Min and Max");
         return;
       }
-      // Add new part to inventory or update part being modified.
       if (addPart) {
-        // Assign next available id from Inventory for a new part
         int id = Inventory.getNextPartID();
         if (inHouse) {
           currentPart = new InHousePart(id, name, price, inv, min, max, machineId);
@@ -183,7 +210,7 @@ public class AddModifyPartController implements Initializable {
           currentPart = new OutsourcedPart(id, name, price, inv, min, max, companyName);
         }
         Inventory.addPart(currentPart);
-        goToMainScreen(event);  // Return to main screen exit point 1 of 2.
+        goToMainScreen(event);
         return;
       } else if (!addPart && inHouse) {
         int id = Integer.parseInt(partFormIDText.getText());
@@ -193,7 +220,7 @@ public class AddModifyPartController implements Initializable {
         currentPart = new OutsourcedPart(id, name, price, inv, min, max, companyName);
       }
       Inventory.updatePart(currentPartIndex, currentPart);
-      goToMainScreen(event); // Return to main screen exit point 2 of 2.
+      goToMainScreen(event);
     } catch (NumberFormatException e) {
       invalidPopup("Invalid Input", "Please check your input.\n" +
           "Min, Max, and Inv fields must be whole numbers.\n" +
@@ -204,8 +231,8 @@ public class AddModifyPartController implements Initializable {
 
   /**
    * The partFormCancelButtonPushed method has the user confirm they would like
-   * to leave the AddModifyPart screen and return to the main screen. A confirmation
-   * dialog is shown to the user.
+   * to leave the AddModifyPart screen and return to the main screen. A
+   * confirmation dialog is shown to the user.
    *
    * @param event Event triggered by user pushing cancel button.
    */
@@ -225,6 +252,16 @@ public class AddModifyPartController implements Initializable {
   //===========================================================================
 
   /**
+   * The Initialize method is called when loading the scene for presentation
+   * to the user. Additional initialization methods may be called within this
+   * method.
+   */
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+
+  }
+
+  /**
    * The initAddPart method prepares the scene for adding a new part.
    * Form label is updated to represent current process. Sets addPart
    * to true to indicate we will be adding a new part.
@@ -238,8 +275,8 @@ public class AddModifyPartController implements Initializable {
   }
 
   /**
-   * The initModPart method prepares the scene for modifying a part and
-   * updating the inventory. Text fields are set for all shared member fields before
+   * The initModPart method prepares the scene for modifying a part and updating
+   * the inventory. Text fields are set for all shared member fields before
    * checking which sub-type the part belongs to for the final field.
    */
   public void initModPart(Part part, int partIndex) {
@@ -276,7 +313,8 @@ public class AddModifyPartController implements Initializable {
   }
 
   /**
-   * The goToMainScreen helper method is called when product has been added or modified.
+   * The goToMainScreen helper method is called when product has been added or
+   * modified.
    *
    * @param event Action event passed from the partFormSaveButtonPushed method.
    */

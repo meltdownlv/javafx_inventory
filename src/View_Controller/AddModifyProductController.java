@@ -28,123 +28,162 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
- * TODO Write Javadoc comments for class header and all @FXML fields
+ * The AddModifyProductController class and associated methods handle logic and
+ * updates to the Add/Modify product form view.
+ *
  * @author Sakae Watanabe
  */
 public class AddModifyProductController implements Initializable {
 
+  //===========================================================================
+  // Product Form Labels & Text Field FXIDS
+  //===========================================================================
+
+  /** Product Form label indicating either add or modify product status. */
   @FXML
   private Label productFormLabel;
 
+  /** Product form ID text field for data collection. */
   @FXML
   private TextField productFormIDText;
 
+  /** Product form Name text field for data collection. */
   @FXML
   private TextField productFormNameText;
 
+  /** Product form Inventory text field for data collection. */
   @FXML
   private TextField productFormInvText;
 
+  /** Product form Price text field for data collection. */
   @FXML
   private TextField productFormPriceText;
 
+  /** Product form Maximum text field for data collection. */
   @FXML
   private TextField productFormMaxText;
 
+  /** Product form Minimum text field for data collection. */
   @FXML
   private TextField productFormMinText;
 
+  
+  //===========================================================================
+  // Available Part Form FXIDS
+  //===========================================================================
+  /** Product form text field for searching available part list. */
   @FXML
   private TextField productFormSearchText;
 
+  /** Product form search available part button. */
   @FXML
   private Button productFormSearchButton;
 
+  /** Product form TableView for the available parts list. */
   @FXML
   private TableView<Part> productFormAvailablePartView;
 
+  /** Table column for available part ID field. */
   @FXML
   private TableColumn<Part, Integer> availablePartIDColumn;
 
+  /** Table column for available part Name field. */
   @FXML
   private TableColumn<Part, String> availablePartNameColumn;
 
+  /** Table column for available part Inventory field. */
   @FXML
   private TableColumn<Part, Integer> availablePartInvColumn;
 
+  /** Table column for available part Price field. */
   @FXML
   private TableColumn<Part, Double> availablePartPriceColumn;
 
-  @FXML
-  private TableView<Part> productFormAssociatedPartView;
-
-  @FXML
-  private TableColumn<Part, Integer> associatedPartIDColumn;
-
-  @FXML
-  private TableColumn<Part, String> associatedPartNameColumn;
-
-  @FXML
-  private TableColumn<Part, Integer> associatedPartInvColumn;
-
-  @FXML
-  private TableColumn<Part, Double> associatedPartPriceColumn;
-
+  /** Button to add part to associated parts list. */
   @FXML
   private Button productFormAddPartButton;
 
+
+  //===========================================================================
+  // Associated Part Table View FXIDS
+  //===========================================================================
+
+  /** Product form TableView for parts asssociated with current product. */
+  @FXML
+  private TableView<Part> productFormAssociatedPartView;
+
+  /** Table column for associated part ID field. */
+  @FXML
+  private TableColumn<Part, Integer> associatedPartIDColumn;
+
+  /** Table column for associated part Name field. */
+  @FXML
+  private TableColumn<Part, String> associatedPartNameColumn;
+
+  /** Table column for associated part Inventory field. */
+  @FXML
+  private TableColumn<Part, Integer> associatedPartInvColumn;
+
+  /** Table column for associated part Price field. */
+  @FXML
+  private TableColumn<Part, Double> associatedPartPriceColumn;
+
+  /** Button to remove part from associated parts list.*/
   @FXML
   private Button removeAssociatedPartButton;
 
+
+  //===========================================================================
+  // Utility Buttons FXIDS
+  //===========================================================================
+
+  /** Button to save new or modified product. */
   @FXML
   private Button productFormSaveButton;
 
+  /** Button for cancelling entry of new or modified product. */
   @FXML
   private Button productFormCancelButton;
 
+
+  //===========================================================================
+  // Class Members for Add/Modify Operations
+  //===========================================================================
   /** The current Product is used when modifying or adding a new product. */
   private Product currentProduct;
   /** Flag to indicate if we are adding a new part. */
   private boolean addProduct;
   /** Index for currentProduct being modified in the main Inventory. */
   private int currentProductIndex;
-  /** The associatedPartList holds the parts associated with the current product. */
+  /** The associatedPartList holds the parts associated for current product. */
   private ObservableList<Part> associatedPartList = FXCollections.observableArrayList();
 
-  /**
-   * The Initialize method for Add/Modify Product screen loads the available parts inventory
-   * and associated parts list into table views.
-   *
-   */
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    // Setup available inventory parts table
-    availablePartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-    availablePartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    availablePartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-    availablePartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-    formatPricing(availablePartPriceColumn);
-    productFormAvailablePartView.setItems(Inventory.getAllParts());
 
-    // Setup associated parts table
-    associatedPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-    associatedPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    associatedPartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-    associatedPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-    formatPricing(associatedPartPriceColumn);
-    productFormAssociatedPartView.setItems(associatedPartList);
-  }
 
   //===========================================================================
   // Associate Part List Methods
   //===========================================================================
 
   /**
-   * The searchAvailablePartsHandler attempts to filter parts matching the given query.
-   * If no parts are found a popup dialog is generated letting the user know.If no
-   * results matched a popup is generated letting the user know that no results were found
-   * and the original list is restored. Search text that is empty or all whitespace characters
-   * will also restore the original list.
+   * The searchAvailablePartsHandler attempts to filter parts matching the given
+   * query. If no parts are found a popup dialog is generated letting the user
+   * know. If no results matched a popup is generated letting the user know that
+   * no results were found and the original list is restored. Search text that
+   * is empty or all whitespace characters will also restore the original list.
+   *
+   * <p>
+   *    <strong>
+   *    RUNTIME EXCEPTION:
+   *    Needed to correct InvocationTargetException that was encountered when
+   *    implementing this method. Method name was updated during the process to
+   *    clarify part list being searched. SetOnAction was updated for the search
+   *    button associated with the text field but had not been updated for the
+   *    text field itself. Scene would throw an InvocationTargetException when
+   *    attempting to load the fxml. SetOnAction method updated for the text
+   *    field resolved the issue.
+   *    </strong>
+   * </p>
+   *
    *
    * @param event Event generated when user clicks the productFormSearch button.
    */
@@ -174,10 +213,13 @@ public class AddModifyProductController implements Initializable {
   }
 
   /**
-   * The addAssociatedPartPushed method adds the selected part from the productFormAvailablePartView
-   * to the associatedPartList. If no part is selected user is notified with a popup dialog.
+   * The addAssociatedPartPushed method adds the selected part from the
+   * productFormAvailablePartView to the associatedPartList. If no part is
+   * selected user is notified with a popup dialog.
    *
    * @param event Event captured when user pushes the productFormAddPart button.
+   *
+   * <p><strong>Runtime Error</strong></p>
    */
   @FXML
   private void addAssociatedPartPushed(ActionEvent event) {
@@ -190,8 +232,9 @@ public class AddModifyProductController implements Initializable {
   }
 
   /**
-   * The removeAssociatedButtonPushed method will remove the selected part from the associated
-   * part list and table view. Popup dialog is generated if user has no item selected.
+   * The removeAssociatedButtonPushed method will remove the selected part from
+   * the associated part list and table view. Popup dialog is generated if user
+   * has no item selected.
    *
    * @param event Event captured when user pushes the removeAssociatedPartButton.
    */
@@ -206,14 +249,17 @@ public class AddModifyProductController implements Initializable {
     }
   }
 
+
   //===========================================================================
   // Save & Cancel Button Methods
   //===========================================================================
 
   /**
-   * The saveProductButtonPushed method determines if we are adding or modifying the
-   * product and attempts to parse fields into proper data types to save a new product
-   * to the inventory. NumberFormatException handled through message dialog to the user.
+   * The saveProductButtonPushed method determines if we are adding or modifying
+   * the product and attempts to parse fields into proper data types to save a
+   * new product to the inventory. NumberFormatException handled through message
+   * dialog to the user.
+   *
    * <p>
    * <ul>
    *   <li>Constraints for all Products</li>
@@ -281,9 +327,9 @@ public class AddModifyProductController implements Initializable {
   }
 
   /**
-   * The productFormCancelButtonPushed method has the user confirm they would like
-   * to leave the AddModifyProduct screen and return to the main screen. A confirmation
-   * dialog is shown to the user.
+   * The productFormCancelButtonPushed method has the user confirm they would
+   * like to leave the AddModifyProduct screen and return to the main screen.
+   * A confirmation dialog is shown to the user before exiting scene.
    *
    * @param event Event triggered by user pushing the cancel button.
    */
@@ -301,6 +347,29 @@ public class AddModifyProductController implements Initializable {
   //===========================================================================
   // Scene Initialization & Helper Methods
   //===========================================================================
+
+  /**
+   * The Initialize method for Add/Modify Product screen loads the available
+   * parts inventory and associated parts list into table views.
+   */
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    // Setup available inventory parts table
+    availablePartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+    availablePartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    availablePartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+    availablePartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    formatPricing(availablePartPriceColumn);
+    productFormAvailablePartView.setItems(Inventory.getAllParts());
+
+    // Setup associated parts table
+    associatedPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+    associatedPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    associatedPartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+    associatedPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    formatPricing(associatedPartPriceColumn);
+    productFormAssociatedPartView.setItems(associatedPartList);
+  }
 
   /**
    * The initAddProduct helper method sets flag in the controller indicating we
@@ -334,7 +403,8 @@ public class AddModifyProductController implements Initializable {
   }
 
   /**
-   * The goToMainScreen helper method is called when product has been added or modified.
+   * The goToMainScreen helper method is called when product has been added or
+   * modified.
    *
    * @param event Action event passed from the partFormSaveButtonPushed method.
    */
@@ -354,8 +424,8 @@ public class AddModifyProductController implements Initializable {
   }
 
   /**
-   * The getAssociatedPartCost method calculates the sum of the associated parts list
-   * prices.
+   * The getAssociatedPartCost method calculates the sum of the associated parts
+   * list prices.
    *
    * @return Double value representing the sum of the associated parts prices.
    */

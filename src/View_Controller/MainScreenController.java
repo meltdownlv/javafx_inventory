@@ -29,82 +29,114 @@ import javafx.stage.Stage;
 /**
  * The MainScreenController class controls the logic for the Main Screen
  * of the inventory application.
- * TODO Write Javadoc comments for class header and all @FXML fields
+ *
  * @author Sakae Watanabe
  */
 public class MainScreenController implements Initializable {
 
+  //===========================================================================
+  // Part Table View FXIDS
+  //===========================================================================
+
+  /** Search text field for Parts TableView on main screen. */
   @FXML
   private TextField mainPartSearchText;
 
+  /** Search button for Parts TableView on main screen. */
   @FXML
   private Button mainPartSearchButton;
 
+  /** Part TableView for main screen displaying all available parts. */
   @FXML
   private TableView<Part> mainPartTableView;
 
+  /** Table column for available part ID field.*/
   @FXML
   private TableColumn<Part, Integer> mainPartIDColumn;
 
+  /** Table column for available part Name field.*/
   @FXML
   private TableColumn<Part, String> mainPartNameColumn;
 
+  /** Table column for available part Inventory field.*/
   @FXML
   private TableColumn<Part, Integer> mainPartInvColumn;
 
+  /** Table column for available part Price field.*/
   @FXML
   private TableColumn<Part, Double> mainPartPriceColumn;
 
+  /** Button to add new part to the available inventory. */
   @FXML
   private Button mainAddPartButton;
 
+  /** Button to modify currently selected part information. */
   @FXML
   private Button mainModPartButton;
 
+  /** Button to delete a product from the inventory. */
   @FXML
   private Button mainDeletePartButton;
 
+  //===========================================================================
+  // Product Table View FXIDS
+  //===========================================================================
+
+  /** Search text field for Products TableView on main screen. */
   @FXML
   private TextField mainProductSearchText;
 
+  /** Search button for Products TableView on main screen. */
   @FXML
   private Button mainProductSearchButton;
 
+  /** Product TableView for main screen displaying all available products. */
   @FXML
   private TableView<Product> mainProductTableView;
 
+  /** Table column for available product ID field. */
   @FXML
   private TableColumn<Product, Integer> mainProductIDColumn;
 
+  /** Table column for available product Name field. */
   @FXML
   private TableColumn<Product, String> mainProductNameColumn;
 
+  /** Table column for available product Inventory field. */
   @FXML
   private TableColumn<Product, Integer> mainProductInvColumn;
 
+  /** Table column for available product Price field. */
   @FXML
   private TableColumn<Product, Double> mainProductPriceColumn;
 
+  /** Button to add new product to the available inventory. */
   @FXML
   private Button mainAddProductButton;
 
+  /** Button to modify product in the available inventory. */
   @FXML
   private Button mainModProductButton;
 
+  /** Button to delete a product from the available inventory. */
   @FXML
   private Button mainDeleteProductButton;
 
+  //===========================================================================
+  // Utility FXIDS
+  //===========================================================================
+
+  /** Button to exit the program. */
   @FXML
   private Button mainExitButton;
 
+
   /**
-   * The Initialize method sets up items for both Part and Product
-   * table views.
-   * TODO: update javadoc for Main Screen initialize method.
+   * The Initialize method sets up items for both Part and Product table views.
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // Setup parts table and load full list from Inventory.
+
     mainPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
     mainPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     mainPartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -113,7 +145,6 @@ public class MainScreenController implements Initializable {
 
     mainPartTableView.setItems(Inventory.getAllParts());
 
-    // Setup products table and load full list from Inventory.
     mainProductIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
     mainProductNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     mainProductInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -129,11 +160,11 @@ public class MainScreenController implements Initializable {
   //===========================================================================
 
   /**
-   * The mainSearchPartHandler method responds to user input in the searchPart field
-   * to either lookup a list of parts matching the given ID or part name. If no
-   * results matched a popup is generated letting the user know that no results were found
-   * and the original list is restored. Search text that is empty or all whitespace characters
-   * will also restore the original list.
+   * The mainSearchPartHandler method responds to user input in the searchPart
+   * field to either lookup a list of parts matching the given ID or part name.
+   * If no results matched a popup is generated letting the user know that no
+   * results were found and the original list is restored. Search text that is
+   * empty or all whitespace characters will also restore the original list.
    *
    * @param event Event generated by user pushing searchPart button OR pressing
    *              Enter key after query has been typed.
@@ -164,9 +195,9 @@ public class MainScreenController implements Initializable {
   }
 
   /**
-   * The addPartButtonPushed method handles changing the scene when the addPartButton
-   * is pushed. A call is made to the AddModifyPartController initAddPart method to prepare
-   * label for the scene.
+   * The addPartButtonPushed method handles changing the scene when the
+   * addPartButton is pushed. A call is made to the AddModifyPartController
+   * initAddPart method to prepare label for the scene.
    *
    * @param event Event captured when user pushes the addPartButton.
    */
@@ -186,10 +217,10 @@ public class MainScreenController implements Initializable {
   }
 
   /**
-   * The modPartButtonPushed method handles changing the scene when the modPartButton
-   * is pushed. A call is made to the AddModifyPartController initModPart method to prepare
-   * label and text fields for the modify part scene. Popup dialog is generated if user has
-   * no item selected.
+   * The modPartButtonPushed method handles changing the scene when the
+   * modPartButton is pushed. A call is made to the AddModifyPartController
+   * initModPart method to prepare label and text fields for the modify part
+   * scene. Popup dialog is generated if user has no item selected.
    *
    * @param event Event captured when user pushes the modPartButton.
    */
@@ -216,8 +247,9 @@ public class MainScreenController implements Initializable {
   }
 
   /**
-   * The deletePartButtonPushed method will delete the selected part from the mainPartTableView
-   * after user confirms the action. Popup dialog is generated if user has no item selected.
+   * The deletePartButtonPushed method will delete the selected part from the
+   * mainPartTableView after user confirms the action. Popup dialog is generated
+   * if user has no item selected.
    *
    * @param event Event captured when user pushes the deletePartButton.
    */
@@ -237,11 +269,11 @@ public class MainScreenController implements Initializable {
   //===========================================================================
 
   /**
-   * The mainSearchProductHandler method responds to user input in the searchProduct
-   * field to either lookup a list of matching products by given ID or part name. If
-   * no results matched a popup is generated letting user know and restoring the table
-   * to the original list. Search text that is empty or all whitespace characters
-   * will also restore the original list.
+   * The mainSearchProductHandler method responds to user input in the
+   * searchProduct field to either lookup a list of matching products by given
+   * ID or part name. If no results matched a popup is generated letting user
+   * know and restoring the table to the original list. Search text that is
+   * empty or all whitespace characters will also restore the original list.
    *
    * @param event Event generated by user pushing searchProduct button OR pressing
    *              Enter key after query has been typed.
@@ -273,11 +305,12 @@ public class MainScreenController implements Initializable {
   }
 
   /**
-   * The addProductButtonPushed handles changing the scene when the addProduct button
-   * is pushed. A call is made to the AddModifyProductController to initialize
-   * the scene with proper labels and flags.
+   * The addProductButtonPushed handles changing the scene when the addProduct
+   * button is pushed. A call is made to the AddModifyProductController to
+   * initialize the scene with proper labels and flags.
    *
-   * @param event Event captured when user clicks on the addProductButtonPushed button.
+   * @param event Event captured when user clicks on the addProductButtonPushed
+   *              button
    */
   @FXML
   private void addProductButtonPushed(ActionEvent event) throws IOException {
@@ -295,9 +328,9 @@ public class MainScreenController implements Initializable {
   }
 
   /**
-   * The modProductButtonPushed handles changing the scene when the modProduct button
-   * is pushed. A call is made to the AddModifyProductController to initialize
-   * the scene with proper labels and flags.
+   * The modProductButtonPushed handles changing the scene when the modProduct
+   * button is pushed. A call is made to the AddModifyProductController to
+   * initialize the scene with proper labels and flags.
    *
    * @param event Event captured when user clicks on the modProductButtonPushed button.
    */
@@ -323,10 +356,10 @@ public class MainScreenController implements Initializable {
   }
 
   /**
-   * The deleteProductButtonPushed method attempts to delete the selected product from the
-   * inventory. Confirmation dialog is given to user if the product is selected and has
-   * no associated parts. Popup dialogs are presented to the user if no product is selected
-   * or the product still has associated parts.
+   * The deleteProductButtonPushed method attempts to delete the selected product
+   * from the inventory. Confirmation dialog is given to user if the product is
+   * selected and has no associated parts. Popup dialogs are presented to the
+   * user if no product is selected or the product still has associated parts.
    *
    * @param event Event triggered by user pushing the deleteProductButton.
    */
@@ -353,8 +386,8 @@ public class MainScreenController implements Initializable {
   //===========================================================================
 
   /**
-   * The exitButtonPushed method confirms if user would like to exit the program and calls
-   * exit if user pushes ok.
+   * The exitButtonPushed method confirms if user would like to exit the program
+   * and calls exit if user pushes ok.
    *
    * @param event Event triggered by user pushing exitButton.
    */
