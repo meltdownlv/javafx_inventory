@@ -297,8 +297,10 @@ public class AddModifyPartController implements Initializable {
     // Check for subclass member.
     if (part instanceof InHousePart) {
       partFormTypeText.setText( String.valueOf( ((InHousePart) part).getMachineID()) );
+      partFormInHouseRadio.setSelected(true);
     } else {
       partFormTypeText.setText( ((OutsourcedPart)part).getCompanyName() );
+      partFormOutsourcedRadio.setSelected(true);
     }
   }
 
