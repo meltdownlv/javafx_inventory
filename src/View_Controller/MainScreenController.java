@@ -256,9 +256,12 @@ public class MainScreenController implements Initializable {
   @FXML
   private void deletePartButtonPushed(ActionEvent event) {
     Part selectedPart = mainPartTableView.getSelectionModel().getSelectedItem();
+    //TODO Clear the label text associated with a non-delete
     if (selectedPart != null && (confirmPopup(event, "Are You Sure?",
         "Part will be permanently deleted from Inventory."))) {
           Inventory.deletePart(selectedPart);
+      // TODO: Move confirmPopup check to an internal if true we delete, else we 
+      // make a label that part was not deleted (cancel button pushed)
     } else {
       invalidPopup("No Part Selected", "Please select a part to delete.");
     }
@@ -366,14 +369,18 @@ public class MainScreenController implements Initializable {
   @FXML
   private void deleteProductButtonPushed(ActionEvent event) {
     Product selectedProduct = mainProductTableView.getSelectionModel().getSelectedItem();
+    //TODO Clear the label text associated with a non-delete
     if (selectedProduct != null) {
       if (selectedProduct.getAllAssociatedParts().isEmpty()) {
           if (confirmPopup(event, "Delete Product?", "Product will be deleted from inventory.")); {
             Inventory.deleteProduct(selectedProduct);
+            // TODO: Move confirmPopup check to an internal if true we delete, else we 
+            // make a label that part was not deleted (cancel button pushed)
         }
       } else {
         invalidPopup("Associated Parts Warning",
             "You must remove all associated parts before deleting product.");
+        // TODO: Add label text update for part not deleted
       }
     } else {
         invalidPopup("No Product Selected.", "Please select a product to delete.");
