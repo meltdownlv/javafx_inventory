@@ -247,16 +247,24 @@ public class Inventory {
    * for testing.
    */
   public static void loadTestData() {
-    InHousePart inPart1 = new InHousePart(getNextPartID(), "Elementium Ore", 10.00, 6, 1, 10, 1);
-    InHousePart inPart2 = new InHousePart(getNextPartID(), "Thorium Bar", 2.50, 10, 4, 60, 1);
-    InHousePart inPart3 = new InHousePart(getNextPartID(), "Arcanite Bar", 10.00, 80, 12, 100, 2);
-    OutsourcedPart outPart1 = new OutsourcedPart(getNextPartID(), "Elemental Flux", 10.00, 7, 5, 10, "Barron's Blessings");
-    OutsourcedPart outPart2 = new OutsourcedPart(getNextPartID(), "Fiery Core", 100.00, 6, 2, 12, "Barron's Blessings");
-    OutsourcedPart outPart3 = new OutsourcedPart(getNextPartID(), "Dense Grinding Stone", 10.00, 6, 2, 12, "Stones & More");
+    InHousePart inPart1 = new InHousePart(getNextPartID(), "Elementium Ore",
+        10.00, 6, 1, 10, 1);
+    InHousePart inPart2 = new InHousePart(getNextPartID(), "Thorium Bar",
+        2.50, 10, 4, 60, 1);
+    InHousePart inPart3 = new InHousePart(getNextPartID(), "Arcanite Bar",
+        10.00, 80, 12, 100, 2);
+    OutsourcedPart outPart1 = new OutsourcedPart(getNextPartID(), "Elemental Flux",
+        10.00, 7, 5, 10, "Barron's Blessings");
+    OutsourcedPart outPart2 = new OutsourcedPart(getNextPartID(), "Fiery Core",
+        100.00, 6, 2, 12, "Barron's Blessings");
+    OutsourcedPart outPart3 = new OutsourcedPart(getNextPartID(), "Dense Grinding Stone",
+        10.00, 6, 2, 12, "Stones & More");
     allParts.addAll(inPart1, inPart2, inPart3, outPart1, outPart2);
 
-    Product product1 = new Product(null, getNextProductID(), "Elementium Bar", 150.00, 3, 1, 10);
-    Product product2 = new Product(null, getNextProductID(), "Arcanite Skeleton Key", 25.00, 3, 1, 5);
+    Product product1 = new Product(null, getNextProductID(), "Elementium Bar",
+        150.00, 3, 1, 10);
+    Product product2 = new Product(null, getNextProductID(), "Arcanite Skeleton Key",
+        25.00, 3, 1, 5);
     product1.addAssociatedPart(inPart1);
     product1.addAssociatedPart(inPart3);
     product1.addAssociatedPart(outPart1);
