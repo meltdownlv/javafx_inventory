@@ -68,6 +68,14 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="645.0" spacing="15.0">
                                  <children>
+                                    <Label fx:id="deletePartCancelLabel" prefHeight="29.0" prefWidth="210.0" textFill="#ee0909">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="50.0" />
+                                       </HBox.margin>
+                                    </Label>
                                     <Button fx:id="mainAddPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#addPartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Add">
                                        <font>
                                           <Font size="13.0" />
@@ -130,6 +138,14 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="645.0" spacing="15.0">
                                  <children>
+                                    <Label fx:id="deleteProductCancelLabel" prefHeight="40.0" prefWidth="200.0" textFill="#ee0909">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="50.0" />
+                                       </HBox.margin>
+                                    </Label>
                                     <Button fx:id="mainAddProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#addProductButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Add">
                                        <font>
                                           <Font size="13.0" />
