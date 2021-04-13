@@ -293,17 +293,15 @@ public class AddModifyProductController implements Initializable {
       inv = Integer.parseInt(productFormInvText.getText().trim());
       min = Integer.parseInt(productFormMinText.getText().trim());
       max = Integer.parseInt(productFormMaxText.getText().trim());
-      // Products must have names.
+
       if (name.equals("")) {
         invalidPopup("Part Name Error", "Part name must be filled in.");
         return;
       }
-      // Min value constraint check. Min < Max must be true.
       if (min >= max) {
         invalidPopup("Min Value Error", "Min must be less than Max");
         return;
       }
-      // Inv value constraint check. Min < Inv < Max must be true.
       if ((inv <= min) || (inv >= max)) {
         invalidPopup("Inv Value Error", "Inv must be between Min and Max");
         return;
@@ -312,7 +310,7 @@ public class AddModifyProductController implements Initializable {
         invalidPopup("Pricing Error", "Product price should be at least the sum of it's parts.");
         return;
       }
-      // Constraints passed -> save new product OR update product at index.
+
       if (addProduct) {
         int id = Inventory.getNextProductID();
         currentProduct = new Product(associatedPartList,id, name, price, inv, min, max);
@@ -359,7 +357,7 @@ public class AddModifyProductController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // Setup available inventory parts table
+
     availablePartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
     availablePartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     availablePartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -367,7 +365,7 @@ public class AddModifyProductController implements Initializable {
     formatPricing(availablePartPriceColumn);
     productFormAvailablePartView.setItems(Inventory.getAllParts());
 
-    // Setup associated parts table
+
     associatedPartIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
     associatedPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     associatedPartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -394,14 +392,14 @@ public class AddModifyProductController implements Initializable {
     addProduct = false;
     currentProduct = product;
     currentProductIndex = productIndex;
-    // Set product information fields.
+
     productFormIDText.setText( String.valueOf(product.getId()) );
     productFormNameText.setText( product.getName() );
     productFormPriceText.setText( String.valueOf(product.getPrice()) );
     productFormInvText.setText( String.valueOf(product.getStock()) );
     productFormMaxText.setText( String.valueOf(product.getMax()) );
     productFormMinText.setText( String.valueOf(product.getMin()) );
-    // Set the list for associated parts in the view.
+
     associatedPartList.setAll( currentProduct.getAllAssociatedParts() );
 
     productFormLabel.setText("Modify Product");
