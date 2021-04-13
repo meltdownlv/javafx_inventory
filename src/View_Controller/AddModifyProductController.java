@@ -173,7 +173,7 @@ public class AddModifyProductController implements Initializable {
    *
    * <p>
    *    <strong>
-   *    RUNTIME EXCEPTION:
+   *    RUNTIME ERROR:
    *    Needed to correct InvocationTargetException that was encountered when
    *    implementing this method. Method name was updated during the process to
    *    clarify part list being searched. SetOnAction was updated for the search
@@ -219,7 +219,6 @@ public class AddModifyProductController implements Initializable {
    *
    * @param event Event captured when user pushes the productFormAddPart button.
    *
-   * <p><strong>Runtime Error</strong></p>
    */
   @FXML
   private void addAssociatedPartPushed(ActionEvent event) {

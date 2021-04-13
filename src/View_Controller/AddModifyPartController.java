@@ -170,7 +170,7 @@ public class AddModifyPartController implements Initializable {
     double price;
     String name;
     String companyName = "";
-
+    // TODO Separate the error messages for the first 3 checks.
     try {
       name = partFormNameText.getText().trim();
       price = Double.parseDouble(partFormPriceText.getText().trim());

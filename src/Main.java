@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  *
  * <p>
  *   <strong>
- *   ENHANCEMENT:
+ *   FUTURE ENHANCEMENT:
  *   Future enhancement to this application would include the integration of
  *   database connectivity using a relational database management system.
  *   Application reuse will be greatly improved by moving to a persistent
@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  * </p>
  * <p>
  *   <strong>
- *     RUNTIME EXCEPTION:
+ *     RUNTIME ERROR:
  *        Located in the AddModifyProductController class for
  *        searchAvailablePartsHandler.
  *   </strong>
