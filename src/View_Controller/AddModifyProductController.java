@@ -241,9 +241,14 @@ public class AddModifyProductController implements Initializable {
   @FXML
   private void removeAssociatedButtonPushed(ActionEvent event) {
     Part selectedPart = productFormAssociatedPartView.getSelectionModel().getSelectedItem();
-    if (selectedPart != null && (confirmPopup(event, "Remove Part?",
-        "Part will be removed from associated parts."))) {
-          associatedPartList.remove(selectedPart);
+    if (selectedPart != null) {
+      if (confirmPopup(event, "Remove Part?", "Part will be removed from associated parts.")) {
+        associatedPartList.remove(selectedPart);
+      } else {
+        invalidPopup("Action Cancelled.",
+            String.format("Part %d was not removed from list.", selectedPart.getId()));
+        System.out.println("We cancelled removing the part.");
+      }
     } else {
       invalidPopup("No Part Selected", "You must select a part to remove.");
     }
