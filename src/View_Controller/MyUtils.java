@@ -8,6 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 
 /**
  * The MyUtils class contains static methods to be used across multiple controller
@@ -16,6 +17,42 @@ import javafx.scene.control.TableColumn;
  * @author Sakae Watanabe
  */
 public class MyUtils {
+
+  //===========================================================================
+  // Data Type Check Helper Methods
+  //===========================================================================
+  /**
+   * The isInt helper method will check the TextField to determine if the text
+   * is an integer value.
+   *
+   * @param textField TextField that will be checked for integer format.
+   * @return True if the text in textField is an integer, false otherwise.
+   */
+  protected static boolean isInt(TextField textField) {
+    try {
+      Integer.parseInt(textField.getText());
+    } catch (NumberFormatException e) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * The isDouble helper method will check the TextField to determine if the text
+   * is a double value.
+   *
+   * @param textField TextField that will be checked for double format.
+   * @return True if the text in textField is a double, false otherwise.
+   */
+  protected static boolean isDouble(TextField textField) {
+    try {
+      Double.parseDouble(textField.getText());
+    } catch (NumberFormatException e) {
+      return false;
+    }
+    return true;
+  }
+
 
   //===========================================================================
   // Popup Dialog Helper Methods

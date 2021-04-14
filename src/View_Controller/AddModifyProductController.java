@@ -3,6 +3,8 @@ package View_Controller;
 import static View_Controller.MyUtils.confirmPopup;
 import static View_Controller.MyUtils.formatPricing;
 import static View_Controller.MyUtils.invalidPopup;
+import static View_Controller.MyUtils.isDouble;
+import static View_Controller.MyUtils.isInt;
 
 import Model.Inventory;
 import Model.Part;
@@ -322,9 +324,22 @@ public class AddModifyProductController implements Initializable {
           goToMainScreen(event);
       }
      } catch (NumberFormatException e) {
-        invalidPopup("Invalid Input", "Please check your input.\n" +
-          "Min, Max, and Inv fields must be whole numbers.\n" +
-          "Price field must contain a number.");
+      String dataFormatErrors = "";
+
+      if (!isInt(productFormInvText)) {
+        dataFormatErrors += "Inventory must be an integer.\n";
+      }
+      if (!isInt(productFormMinText)) {
+        dataFormatErrors += "Min must be an integer.\n";
+      }
+      if (!isInt(productFormMaxText)) {
+        dataFormatErrors += "Max must be an integer.\n";
+      }
+      if (!isDouble(productFormPriceText)) {
+        dataFormatErrors += "Price must be a double.\n";
+      }
+
+      invalidPopup("Invalid Input", dataFormatErrors);
     }
   }
 

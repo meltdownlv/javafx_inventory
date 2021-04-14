@@ -2,6 +2,8 @@ package View_Controller;
 
 import static View_Controller.MyUtils.confirmPopup;
 import static View_Controller.MyUtils.invalidPopup;
+import static View_Controller.MyUtils.isDouble;
+import static View_Controller.MyUtils.isInt;
 
 import Model.InHousePart;
 import Model.Inventory;
@@ -154,9 +156,9 @@ public class AddModifyPartController implements Initializable {
    *     <li>MachineID must be an integer.</li>
    *   </ul>
    *   <em><li>For OutsourcedParts</li></em>
-   *    <ul>
+   *   <ul>
    *      <li>CompanyName must be filled in.</li>
-   *    </ul>
+   *   </ul>
    * </ul>
    * </p>
    *
@@ -170,7 +172,7 @@ public class AddModifyPartController implements Initializable {
     double price;
     String name;
     String companyName = "";
-    // TODO Separate the error messages for the first 3 checks.
+
     try {
       name = partFormNameText.getText().trim();
       price = Double.parseDouble(partFormPriceText.getText().trim());
@@ -222,10 +224,22 @@ public class AddModifyPartController implements Initializable {
       Inventory.updatePart(currentPartIndex, currentPart);
       goToMainScreen(event);
     } catch (NumberFormatException e) {
-      invalidPopup("Invalid Input", "Please check your input.\n" +
-          "Min, Max, and Inv fields must be whole numbers.\n" +
-          "Price field must contain a number.\n" +
-          "For InHouse parts MachineID must be a whole number.");
+      String dataFormatErrors = "";
+
+      if (!isInt(partFormInvText)) {
+        dataFormatErrors += "Inventory must be an integer.\n";
+      }
+      if (!isInt(partFormMinText)) {
+        dataFormatErrors += "Min must be an integer.\n";
+      }
+      if (!isInt(partFormMaxText)) {
+        dataFormatErrors += "Max must be an integer.\n";
+      }
+      if (!isDouble(partFormPriceText)) {
+        dataFormatErrors += "Price must be a double.\n";
+      }
+
+      invalidPopup("Invalid Input", dataFormatErrors);
     }
   }
 
