@@ -298,7 +298,6 @@ public class AddModifyPartController implements Initializable {
     currentPartIndex = partIndex;
     setPartTypes();
     partFormLabel.setText("Modify Part");
-    partFormOutsourcedRadio.setSelected(true);
 
     // Members shared by all Part classes.
     partFormIDText.setText( String.valueOf(part.getId()) );
