@@ -299,7 +299,6 @@ public class AddModifyPartController implements Initializable {
     setPartTypes();
     partFormLabel.setText("Modify Part");
     partFormOutsourcedRadio.setSelected(true);
-    partFormTypeLabel.setText("Company Name");
 
     // Members shared by all Part classes.
     partFormIDText.setText( String.valueOf(part.getId()) );
@@ -312,9 +311,11 @@ public class AddModifyPartController implements Initializable {
     if (part instanceof InHousePart) {
       partFormTypeText.setText( String.valueOf( ((InHousePart) part).getMachineID()) );
       partFormInHouseRadio.setSelected(true);
+      partFormTypeLabel.setText("Machine ID");
     } else {
       partFormTypeText.setText( ((OutsourcedPart)part).getCompanyName() );
       partFormOutsourcedRadio.setSelected(true);
+      partFormTypeLabel.setText("Company Name");
     }
   }
 
