@@ -98,7 +98,7 @@
                <children>
                   <HBox alignment="BOTTOM_RIGHT" prefHeight="41.0" prefWidth="582.0">
                      <children>
-                        <TextField fx:id="productFormSearchText" onAction="#searchProductsHandler" prefHeight="30.0" prefWidth="175.0" promptText="Search by Part ID or Name">
+                        <TextField fx:id="productFormSearchText" onAction="#searchAvailablePartsHandler" prefHeight="30.0" prefWidth="175.0" promptText="Search by Part ID or Name">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -106,7 +106,7 @@
                               <Font size="13.0" />
                            </font>
                         </TextField>
-                        <Button fx:id="productFormSearchButton" mnemonicParsing="false" onAction="#searchProductsHandler" prefHeight="30.0" prefWidth="63.0" text="Search" />
+                        <Button fx:id="productFormSearchButton" mnemonicParsing="false" onAction="#searchAvailablePartsHandler" prefHeight="30.0" prefWidth="63.0" text="Search" />
                      </children>
                   </HBox>
                   <TableView fx:id="productFormAvailablePartView" prefHeight="200.0" prefWidth="200.0">
@@ -119,7 +119,7 @@
                   </TableView>
                   <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="562.0">
                      <children>
-                        <Button fx:id="productFormAddPartButton" mnemonicParsing="false" onAction="#addPartToProductPushed" prefHeight="25.0" prefWidth="45.0" text="Add">
+                        <Button fx:id="productFormAddPartButton" mnemonicParsing="false" onAction="#addAssociatedPartPushed" prefHeight="25.0" prefWidth="45.0" text="Add">
                            <font>
                               <Font size="13.0" />
                            </font>
