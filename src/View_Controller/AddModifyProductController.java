@@ -173,20 +173,6 @@ public class AddModifyProductController implements Initializable {
    * no results were found and the original list is restored. Search text that
    * is empty or all whitespace characters will also restore the original list.
    *
-   * <p>
-   *    <strong>
-   *    RUNTIME ERROR:
-   *    Needed to correct InvocationTargetException that was encountered when
-   *    implementing this method. Method name was updated during the process to
-   *    clarify part list being searched. SetOnAction was updated for the search
-   *    button associated with the text field but had not been updated for the
-   *    text field itself. Scene would throw an InvocationTargetException when
-   *    attempting to load the fxml. SetOnAction method updated for the text
-   *    field resolved the issue.
-   *    </strong>
-   * </p>
-   *
-   *
    * @param event Event generated when user clicks the productFormSearch button.
    */
   @FXML

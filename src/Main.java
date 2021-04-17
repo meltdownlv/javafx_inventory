@@ -22,17 +22,6 @@ import javafx.stage.Stage;
  *   </strong>
  * </p>
  * <p>
- *   <strong>
- *     RUNTIME ERROR:
- *        Located in the AddModifyProductController class for
- *        searchAvailablePartsHandler.
- *   </strong>
- * </p>
- * <p>
- *   <strong>
- *     JAVADOCS: LOCATED IN TOP LEVEL OF PROJECT DIRECTORY IN FOLDER JAVADOCS
- *   </strong>
- * </p>
  * @author Sakae Watanabe
  */
 public class Main extends Application {
