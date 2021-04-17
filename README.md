@@ -13,6 +13,7 @@ and will be reset on launch.
 * Allows user to change parts to different types via modify screen
 
 ## Learning Goals Accomplished
+* Learn MVC design pattern principles 
 * Learning and use of JavaFX library for GUI application development
 * Basic GUI design using fxml and Scenebuilder tool
 * Input validation and user notification through alert popups 
