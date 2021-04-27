@@ -371,7 +371,33 @@ public class MainScreenController implements Initializable {
       invalidPopup("No Product Selected.", "Please select a product to modify.");
     }
   }
+  
+  // TODO: Move this into the parts section and add javadoc && Add to handlers in fxml
+  @FXML
+  public void partRowClicked(MouseEvent event) {
+    if(event.getClickCount() == 2) {
+      ActionEvent action = new ActionEvent(event.getSource(), event.getTarget());
+      try {
+        modPartButtonPushed(action);
+      } catch(IOException e) {
+        invalidPopup("Input Error", "Error when selecting part.");
+      }
+    }
+  }
 
+  // TODO: Add javadoc comments && Add to handlers in fxml
+  @FXML
+  public void productRowClicked(MouseEvent event) {
+    if(event.getClickCount() == 2) {
+      ActionEvent action = new ActionEvent(event.getSource(), event.getTarget());
+      try {
+        modProductButtonPushed(action);
+      } catch(IOException e) {
+        invalidPopup("Input Error", "Error when selecting product.");
+      }
+    }
+  }
+  
   /**
    * The deleteProductButtonPushed method attempts to delete the selected product
    * from the inventory. Confirmation dialog is given to user if the product is
