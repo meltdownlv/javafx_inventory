@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.MainScreenController">
+<AnchorPane prefHeight="500.0" prefWidth="1350.0" stylesheets="@../resources/mainScreen.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.MainScreenController">
    <children>
       <VBox prefHeight="500.0" prefWidth="1350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -31,82 +31,12 @@
                <children>
                   <HBox prefHeight="321.0" prefWidth="1319.0" spacing="30.0">
                      <children>
-                        <VBox prefWidth="675.0" style="-fx-border-color: black; -fx-border-radius: 8; -fx-border-width: 3;">
-                           <children>
-                              <AnchorPane prefHeight="37.0" prefWidth="579.0">
-                                 <children>
-                                    <TextField fx:id="mainPartSearchText" layoutX="320.0" layoutY="8.0" onAction="#mainSearchPartHandler" prefHeight="30.0" prefWidth="175.0" promptText="Search by Part ID or Name" />
-                                    <Label layoutX="14.0" layoutY="11.0" text="Parts">
-                                       <font>
-                                          <Font name="System Bold" size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="mainPartSearchButton" layoutX="494.0" layoutY="8.0" mnemonicParsing="false" onAction="#mainSearchPartHandler" prefHeight="30.0" prefWidth="69.0" text="Search">
-                                       <font>
-                                          <Font size="13.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </AnchorPane>
-                              <HBox prefHeight="231.0" prefWidth="645.0">
-                                 <children>
-                                    <TableView fx:id="mainPartTableView" prefHeight="153.0" prefWidth="615.0">
-                                      <columns>
-                                        <TableColumn fx:id="mainPartIDColumn" editable="false" prefWidth="106.0" resizable="false" text="Part ID" />
-                                        <TableColumn fx:id="mainPartNameColumn" editable="false" prefWidth="112.0" resizable="false" text="Part Name" />
-                                          <TableColumn fx:id="mainPartInvColumn" editable="false" prefWidth="141.0" resizable="false" text="Inventory Level" />
-                                          <TableColumn fx:id="mainPartPriceColumn" editable="false" prefWidth="189.0" resizable="false" text="Price / Cost per Unit" />
-                                      </columns>
-                                       <HBox.margin>
-                                          <Insets left="15.0" right="15.0" />
-                                       </HBox.margin>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                    </TableView>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="645.0" spacing="15.0">
-                                 <children>
-                                    <Label fx:id="deletePartCancelLabel" prefHeight="29.0" prefWidth="210.0" textFill="#ee0909">
-                                       <font>
-                                          <Font name="System Bold Italic" size="12.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets right="50.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Button fx:id="mainAddPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#addPartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Add">
-                                       <font>
-                                          <Font size="13.0" />
-                                       </font></Button>
-                                    <Button fx:id="mainModPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#modPartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Modify">
-                                       <font>
-                                          <Font size="13.0" />
-                                       </font></Button>
-                                    <Button fx:id="mainDeletePartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#deletePartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Delete">
-                                       <font>
-                                          <Font size="13.0" />
-                                       </font></Button>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
-                                 </padding>
-                              </HBox>
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </padding>
-                        </VBox>
-                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="321.0" prefWidth="706.0" style="-fx-border-color: black; -fx-border-radius: 8; -fx-border-width: 3;">
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="321.0" prefWidth="706.0" styleClass="tableContainer">
                            <children>
                               <AnchorPane>
                                  <children>
                                     <TextField fx:id="mainProductSearchText" layoutX="350.0" onAction="#mainSearchProductHandler" prefHeight="30.0" prefWidth="175.0" promptText="Search by Product ID or Name" />
-                                    <Label layoutX="14.0" layoutY="6.0" text="Products">
+                                    <Label layoutX="14.0" layoutY="6.0" text="Available Products">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
@@ -155,6 +85,76 @@
                                           <Font size="13.0" />
                                        </font></Button>
                                     <Button fx:id="mainDeleteProductButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#deleteProductButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Delete">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font></Button>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefWidth="675.0" styleClass="tableContainer">
+                           <children>
+                              <AnchorPane prefHeight="37.0" prefWidth="579.0">
+                                 <children>
+                                    <TextField fx:id="mainPartSearchText" layoutX="320.0" layoutY="8.0" onAction="#mainSearchPartHandler" prefHeight="30.0" prefWidth="175.0" promptText="Search by Part ID or Name" />
+                                    <Label layoutX="14.0" layoutY="11.0" text="Available Parts">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="mainPartSearchButton" layoutX="494.0" layoutY="8.0" mnemonicParsing="false" onAction="#mainSearchPartHandler" prefHeight="30.0" prefWidth="69.0" text="Search">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <HBox prefHeight="231.0" prefWidth="645.0">
+                                 <children>
+                                    <TableView fx:id="mainPartTableView" prefHeight="153.0" prefWidth="615.0">
+                                      <columns>
+                                        <TableColumn fx:id="mainPartIDColumn" editable="false" prefWidth="106.0" resizable="false" text="Part ID" />
+                                        <TableColumn fx:id="mainPartNameColumn" editable="false" prefWidth="112.0" resizable="false" text="Part Name" />
+                                          <TableColumn fx:id="mainPartInvColumn" editable="false" prefWidth="141.0" resizable="false" text="Inventory Level" />
+                                          <TableColumn fx:id="mainPartPriceColumn" editable="false" prefWidth="189.0" resizable="false" text="Price / Cost per Unit" />
+                                      </columns>
+                                       <HBox.margin>
+                                          <Insets left="15.0" right="15.0" />
+                                       </HBox.margin>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="645.0" spacing="15.0">
+                                 <children>
+                                    <Label fx:id="deletePartCancelLabel" prefHeight="29.0" prefWidth="210.0" textFill="#ee0909">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="50.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Button fx:id="mainAddPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#addPartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Add">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font></Button>
+                                    <Button fx:id="mainModPartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#modPartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Modify">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font></Button>
+                                    <Button fx:id="mainDeletePartButton" maxHeight="60.0" maxWidth="60.0" mnemonicParsing="false" onAction="#deletePartButtonPushed" prefHeight="60.0" prefWidth="60.0" text="Delete">
                                        <font>
                                           <Font size="13.0" />
                                        </font></Button>

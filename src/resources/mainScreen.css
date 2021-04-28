@@ -1,0 +1,21 @@
+* {
+  -main-bg-color: #FFFFFF;
+  -dark-accent-color: #333F42;
+  -light-accent-color: #B4975A;
+  -tertiary-accent-color: #C8102E;
+  -black-accent-color: #000000;
+}
+
+.root {
+  -fx-background-color: -dark-accent-color;
+}
+
+.label {
+  -fx-text-fill: -light-accent-color;
+}
+
+.tableContainer {
+  -fx-border-color: -dark-accent-color;
+  -fx-border-width: 3px;
+  -fx-border-radius: 10px;
+}
